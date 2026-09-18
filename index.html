@@ -1282,7 +1282,7 @@
   <button class="ach-btn" onclick="goMissions()" title="Toutes tes missions, regroupées">🗂️ Missions</button>
   <button class="ach-btn" onclick="goChroniques()" title="Temps de travail et années">⏱</button>
   <button class="ach-btn" onclick="openThemes()" title="Changer de thème">🎨</button>
-  <button class="ach-btn" onclick="openAchievements()">🏆 <span id="hAchCount">0/13</span></button>
+  <button class="ach-btn" onclick="openAchievements()">🏆 <span id="hAchCount">0/46</span></button>
 </header>
 
 <main>
@@ -1364,20 +1364,51 @@ const IMPORTANCE = {
 };
 
 const ACHIEVEMENTS = [
-  { id: "first", icon: "👣", name: "Premier pas", desc: "Cocher sa première mission", test: s => s.log.length >= 1 },
-  { id: "ten", icon: "🔥", name: "En roue libre", desc: "10 missions terminées", test: s => s.log.length >= 10 },
-  { id: "hundred", icon: "💯", name: "Centurion", desc: "100 missions terminées", test: s => s.log.length >= 100 },
-  { id: "obj1", icon: "🎯", name: "Quête accomplie", desc: "Terminer une quête à 100%", test: s => completedObjectives(s) >= 1 },
-  { id: "obj3", icon: "🏰", name: "Grand stratège", desc: "Terminer 3 quêtes à 100%", test: s => completedObjectives(s) >= 3 },
-  { id: "xp1k", icon: "⭐", name: "Mille XP", desc: "Atteindre 1000 XP", test: s => s.xp >= 1000 },
-  { id: "xp10k", icon: "🌟", name: "Dix mille XP", desc: "Atteindre 10000 XP", test: s => s.xp >= 10000 },
-  { id: "marathon", icon: "🏃", name: "Marathon", desc: "Une mission de 90 minutes ou plus", test: s => s.log.some(e => e.minutes >= 90) },
-  { id: "sprint", icon: "⚡", name: "Sprint", desc: "5 missions terminées dans la même journée", test: s => maxTasksPerDay(s) >= 5 },
-  { id: "multi", icon: "🤹", name: "Multicartes", desc: "De l'XP gagné dans 3 quêtes différentes", test: s => new Set(s.log.map(e => e.objectiveId)).size >= 3 },
-  { id: "bg20", icon: "⚙️", name: "Intendant", desc: "20 missions de fond accomplies", test: s => s.log.filter(e => e.objectiveId === "background").length >= 20 },
-  { id: "parch", icon: "📜", name: "Archiviste", desc: "Mettre une quête en parchemin", test: s => s.parchemins.length >= 1 },
-  { id: "lvl5", icon: "🛡️", name: "Niveau 5", desc: "Atteindre le niveau 5", test: s => levelInfo(s.xp).level >= 5 },
-  { id: "lvl10", icon: "👑", name: "Niveau 10", desc: "Atteindre le niveau 10", test: s => levelInfo(s.xp).level >= 10 }
+  { id: "first", icon: "👣", name: "Le premier engrenage", desc: "Cocher sa première mission", test: s => s.log.length >= 1 },
+  { id: "ten", icon: "🔥", name: "L'élan primal", desc: "10 missions terminées", test: s => s.log.length >= 10 },
+  { id: "hundred", icon: "💯", name: "Centurion d'airain", desc: "100 missions terminées", test: s => s.log.length >= 100 },
+  { id: "m250", icon: "💪", name: "Muscles de routine", desc: "250 missions terminées", test: s => s.log.length >= 250 },
+  { id: "m500", icon: "🏟️", name: "Gloire des arènes", desc: "500 missions terminées", test: s => s.log.length >= 500 },
+  { id: "obj1", icon: "🎯", name: "Premier trophée de chasse", desc: "Terminer une quête à 100%", test: s => completedObjectives(s) >= 1 },
+  { id: "obj3", icon: "🏰", name: "Bâtisseur de légendes", desc: "Terminer 3 quêtes à 100%", test: s => completedObjectives(s) >= 3 },
+  { id: "obj10", icon: "🗺️", name: "Cartographe des brumes", desc: "Terminer 10 quêtes à 100%", test: s => completedObjectives(s) >= 10 },
+  { id: "obj25", icon: "🗡️", name: "Conquérant du couchant", desc: "Terminer 25 quêtes à 100%", test: s => completedObjectives(s) >= 25 },
+  { id: "xp1k", icon: "⭐", name: "L'éveil de l'étoile", desc: "Atteindre 1000 XP", test: s => s.xp >= 1000 },
+  { id: "xp10k", icon: "🌟", name: "Constellation personnelle", desc: "Atteindre 10000 XP", test: s => s.xp >= 10000 },
+  { id: "xp25k", icon: "✨", name: "Magnat des étoiles", desc: "Atteindre 25000 XP", test: s => s.xp >= 25000 },
+  { id: "xpd500", icon: "🌞", name: "Soleil de plomb", desc: "Gagner 500 XP en une seule journée", test: s => maxXpPerDay(s) >= 500 },
+  { id: "marathon", icon: "🏃", name: "Le mur des 90", desc: "Une mission de 90 minutes ou plus", test: s => longestMission(s) >= 90 },
+  { id: "m180", icon: "🦾", name: "Le puits sans fond", desc: "Une mission de 3 heures ou plus", test: s => longestMission(s) >= 180 },
+  { id: "min1k", icon: "⏳", name: "Maître des miettes de temps", desc: "1000 minutes de travail cumulées", test: s => totalMinutes(s) >= 1000 },
+  { id: "min5k", icon: "🕰️", name: "Horloger du royaume", desc: "5000 minutes de travail cumulées", test: s => totalMinutes(s) >= 5000 },
+  { id: "min10k", icon: "⌛", name: "Cent heures de labeur", desc: "100 heures de travail cumulées", test: s => totalMinutes(s) >= 6000 },  { id: "day10h", icon: "🌋", name: "Journée de titan", desc: "10 heures de travail dans une seule journée", test: s => maxMinutesPerDay(s) >= 600 },
+  { id: "sprint", icon: "⚡", name: "Rafale d'or", desc: "5 missions terminées dans la même journée", test: s => maxTasksPerDay(s) >= 5 },
+  { id: "streak3", icon: "🚣", name: "Vague après vague", desc: "Travailler 3 jours d'affilée", test: s => maxStreak(s) >= 3 },
+  { id: "streak7", icon: "📅", name: "Les sept veilles", desc: "Travailler 7 jours d'affilée", test: s => maxStreak(s) >= 7 },
+  { id: "streak14", icon: "🗓️", name: "Quinzaine de feu", desc: "Travailler 14 jours d'affilée", test: s => maxStreak(s) >= 14 },
+  { id: "streak30", icon: "🌳", name: "Racines profondes", desc: "Travailler 30 jours d'affilée", test: s => maxStreak(s) >= 30 },
+  { id: "dawn50", icon: "🧭", name: "Rituel de l'aube", desc: "Travailler 50 jours différents", test: s => distinctDays(s) >= 50 },
+  { id: "exile", icon: "🕊️", name: "Le retour de l'exilé", desc: "Reprendre après 30 jours d'absence ou plus", test: s => hasPlayedAtLeastOnce(s) && maxGapDays(s) >= 30 },
+  { id: "owl", icon: "🦉", name: "Veilleur de minuit", desc: "Une mission accomplie entre 0 h et 5 h du matin", test: s => hasPlayedAtHour(s, h => h >= 0 && h < 5) },
+  { id: "early", icon: "🌅", name: "Guerrier de l'aube", desc: "Une mission accomplie entre 5 h et 8 h du matin", test: s => hasPlayedAtHour(s, h => h >= 5 && h < 8) },
+  { id: "multi", icon: "🤹", name: "Jongleur de destins", desc: "De l'XP gagné dans 3 quêtes différentes", test: s => distinctQuestsWithXp(s) >= 3 },
+  { id: "lands10", icon: "🌐", name: "Gouverneur de dix provinces", desc: "De l'XP gagné dans 10 quêtes différentes", test: s => distinctQuestsWithXp(s) >= 10 },
+  { id: "repeat10", icon: "🔁", name: "Virtuose du refrain", desc: "Accomplir 10 fois la même mission", test: s => maxTaskRepeat(s) >= 10 },
+  { id: "colossus", icon: "🗿", name: "Colosse domestiqué", desc: "Porter une quête de 20 missions ou plus", test: s => hasBigQuest(s) },
+  { id: "bg20", icon: "⚙️", name: "Maître du hall", desc: "20 missions de fond accomplies", test: s => s.log.filter(e => e.objectiveId === "background").length >= 20 },
+  { id: "monster1", icon: "🗡️", name: "Premier croc arraché", desc: "Vaincre un monstre 👹", test: s => monsterCount(s) >= 1 },
+  { id: "monster10", icon: "😱", name: "Épouvanteur de gouffres", desc: "Vaincre 10 monstres 👹", test: s => monsterCount(s) >= 10 },
+  { id: "cat6", icon: "🎪", name: "Jongleur de six cordes", desc: "De l'XP gagné dans 6 catégories différentes", test: s => distinctCatsWithXp(s) >= 6 },
+  { id: "cat1k", icon: "🔬", name: "Dévôt d'une seule voie", desc: "1000 minutes dans une même catégorie", test: s => maxCatMinutes(s) >= 1000 },
+  { id: "parch", icon: "📜", name: "Encre et vélin", desc: "Mettre une quête en parchemin", test: s => s.parchemins.length >= 1 },
+  { id: "parch3", icon: "📚", name: "Gardien des rouleaux", desc: "Posséder 3 parchemins", test: s => s.parchemins.length >= 3 },
+  { id: "arch5", icon: "📦", name: "Sénéchal du grenier", desc: "Archiver 5 quêtes", test: s => (s.archive || []).length >= 5 },
+  { id: "sub25", icon: "📝", name: "Grand scribe des listes", desc: "Cocher 25 sous-tâches", test: s => subtasksDone(s) >= 25 },
+  { id: "lvl3", icon: "🐴", name: "Premiers éperons", desc: "Atteindre le niveau 3", test: s => levelInfo(s.xp).level >= 3 },
+  { id: "lvl5", icon: "🛡️", name: "Écu serti", desc: "Atteindre le niveau 5", test: s => levelInfo(s.xp).level >= 5 },
+  { id: "lvl10", icon: "👑", name: "Le sceptre et l'or", desc: "Atteindre le niveau 10", test: s => levelInfo(s.xp).level >= 10 },
+  { id: "lvl15", icon: "😈", name: "L'ombre du boss", desc: "Atteindre le niveau 15", test: s => levelInfo(s.xp).level >= 15 },
+  { id: "lvl20", icon: "🌠", name: "Parangon des siècles", desc: "Atteindre le niveau 20", test: s => levelInfo(s.xp).level >= 20 }
 ];
 
 const THEMES = [
@@ -1533,6 +1564,116 @@ function maxTasksPerDay(s) {
     counts[day] = (counts[day] || 0) + 1;
   }
   return Object.values(counts).reduce((m, c) => Math.max(m, c), 0);
+}
+
+function logDayList(s) {
+  const set = new Set();
+  s.log.forEach(e => set.add(e.date.slice(0, 10)));
+  return Array.from(set).sort();
+}
+
+function maxStreak(s) {
+  const days = logDayList(s);
+  let best = 0, cur = 0, prev = null;
+  for (const d of days) {
+    cur = prev && (new Date(d + "T12:00") - new Date(prev + "T12:00")) === 86400000 ? cur + 1 : 1;
+    prev = d;
+    if (cur > best) best = cur;
+  }
+  return best;
+}
+
+function distinctDays(s) {
+  return logDayList(s).length;
+}
+
+function maxGapDays(s) {
+  const days = logDayList(s);
+  let best = 0;
+  for (let i = 1; i < days.length; i++) {
+    best = Math.max(best, (new Date(days[i] + "T12:00") - new Date(days[i - 1] + "T12:00")) / 86400000);
+  }
+  return Math.round(best);
+}
+
+function maxMinutesPerDay(s) {
+  const counts = {};
+  for (const e of s.log) {
+    const day = e.date.slice(0, 10);
+    counts[day] = (counts[day] || 0) + (e.minutes || 0);
+  }
+  return Object.values(counts).reduce((m, c) => Math.max(m, c), 0);
+}
+
+function maxXpPerDay(s) {
+  const counts = {};
+  for (const e of s.log) {
+    const day = e.date.slice(0, 10);
+    counts[day] = (counts[day] || 0) + (e.xp || 0);
+  }
+  return Object.values(counts).reduce((m, c) => Math.max(m, c), 0);
+}
+
+function totalMinutes(s) {
+  return s.log.reduce((m, e) => m + (e.minutes || 0), 0);
+}
+
+function longestMission(s) {
+  return s.log.reduce((m, e) => Math.max(m, e.minutes || 0), 0);
+}
+
+function monsterCount(s) {
+  return s.log.filter(e => (e.mult || 0) >= 10).length;
+}
+
+function maxCatMinutes(s) {
+  const counts = {};
+  for (const e of s.log) {
+    if (!e.cat) continue;
+    counts[e.cat] = (counts[e.cat] || 0) + (e.minutes || 0);
+  }
+  return Object.values(counts).reduce((m, c) => Math.max(m, c), 0);
+}
+
+function distinctCatsWithXp(s) {
+  const set = new Set();
+  s.log.forEach(e => { if (e.cat) set.add(e.cat); });
+  return set.size;
+}
+
+function subtasksDone(s) {
+  let n = 0;
+  const scan = o => (o.items || []).forEach(it => { if (it.done) n++; });
+  s.objectives.forEach(o => o.tasks.forEach(scan));
+  s.background.forEach(scan);
+  (s.archive || []).forEach(o => o.tasks.forEach(scan));
+  return n;
+}
+
+function hasPlayedAtHour(s, fn) {
+  return s.log.some(e => fn(new Date(e.date).getHours()));
+}
+
+function hasBigQuest(s) {
+  return s.objectives.concat(s.archive || []).some(o => o.tasks.length >= 20);
+}
+
+function distinctQuestsWithXp(s) {
+  return new Set(s.log.map(e => e.objectiveId).filter(id => id !== "background")).size;
+}
+
+function maxTaskRepeat(s) {
+  const counts = {};
+  for (const e of s.log) {
+    const key = e.taskId || e.taskName;
+    if (!key) continue;
+    counts[key] = (counts[key] || 0) + 1;
+  }
+  return Object.values(counts).reduce((m, c) => Math.max(m, c), 0);
+}
+
+function hasPlayedAtLeastOnce(s) {
+  return s.log.length > 0;
 }
 
 function objectiveStats(obj) {
