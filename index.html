@@ -1,0 +1,3973 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quest</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  [hidden] { display: none !important; }
+
+  :root {
+    --bg: #0e1016;
+    --card: #171a24;
+    --card2: #1e2230;
+    --border: #2a2f42;
+    --text: #e8eaf2;
+    --muted: #8b90a5;
+    --accent: #8b5cf6;
+    --accent2: #ec4899;
+    --accent-deep: #6d28d9;
+    --soft: #c4b5fd;
+    --line: #1f2333;
+    --bar-bg: #12141d;
+    --check-mark: #0e1016;
+    --header1: #171a24;
+    --header2: #1d1530;
+    --overlay: rgba(5, 6, 10, 0.75);
+    --accent-soft: rgba(139, 92, 246, 0.15);
+    --accent-softer: rgba(139, 92, 246, 0.12);
+    --accent2-soft: rgba(236, 72, 153, 0.15);
+    --tag1-bg: #2c3145;
+    --tag1-tx: #9aa1bd;
+    --tag2-bg: #3d2f14;
+    --tag2-tx: #f39c12;
+    --tag3-bg: #3b1d3f;
+    --tag3-tx: #e879f9;
+    --imp1: #9aa1bd;
+    --imp2: #f39c12;
+    --imp3: #e879f9;
+    --btn-tx: #ffffff;
+    --toast-tx: #ffffff;
+    --badge-tx: #ffffff;
+    --red: #e74c3c;
+    --orange: #f39c12;
+    --yellow: #f1c40f;
+    --green: #2ecc71;
+  }
+
+  body.theme-gold {
+    --bg: #faf6ec; --card: #ffffff; --card2: #f5efe0; --border: #e3d9bf;
+    --text: #33291a; --muted: #9a8b6a;
+    --accent: #b8901f; --accent2: #e3c05a; --accent-deep: #93731a; --soft: #a8811c;
+    --line: #eee6d2; --bar-bg: #f0ead8; --check-mark: #faf6ec;
+    --header1: #ffffff; --header2: #f5edda;
+    --overlay: rgba(60, 50, 20, 0.35);
+    --accent-soft: rgba(184, 144, 31, 0.14);
+    --accent-softer: rgba(184, 144, 31, 0.10);
+    --accent2-soft: rgba(227, 192, 90, 0.14);
+    --tag1-bg: #efeadb; --tag1-tx: #7d7358;
+    --tag2-bg: #faeed3; --tag2-tx: #b96e00;
+    --tag3-bg: #f9e8f4; --tag3-tx: #b0329a;
+    --imp1: #8a90a5; --imp2: #d68910; --imp3: #c026a8;
+    --btn-tx: #ffffff; --toast-tx: #ffffff; --badge-tx: #ffffff;
+    --red: #ff5a5a; --orange: #ff9d45; --yellow: #ffe14d; --green: #4de07a;
+  }
+
+  body.theme-arcade {
+    --bg: #0b0714; --card: #151022; --card2: #1d1631; --border: #322552;
+    --text: #eae6ff; --muted: #8f84b8;
+    --accent: #00e5ff; --accent2: #ff2fb0; --accent-deep: #00b8cc; --soft: #7ff3ff;
+    --line: #241a3d; --bar-bg: #100b1d; --check-mark: #0b0714;
+    --header1: #151022; --header2: #2a0f33;
+    --overlay: rgba(5, 3, 12, 0.8);
+    --accent-soft: rgba(0, 229, 255, 0.12);
+    --accent-softer: rgba(0, 229, 255, 0.09);
+    --accent2-soft: rgba(255, 47, 176, 0.12);
+    --tag1-bg: #242a45; --tag1-tx: #9aa1bd;
+    --tag2-bg: #3d2f14; --tag2-tx: #ffb400;
+    --tag3-bg: #3b1d3f; --tag3-tx: #ff5cd0;
+    --imp1: #9aa1bd; --imp2: #ffb400; --imp3: #ff5cd0;
+    --btn-tx: #071018; --toast-tx: #071018; --badge-tx: #071018;
+  }
+
+  body.theme-playfight {
+    --bg: #160c0a; --card: #20120e; --card2: #2b1913; --border: #46281e;
+    --text: #f5e9e4; --muted: #a98879;
+    --accent: #ff5a3c; --accent2: #ffb454; --accent-deep: #d63a1e; --soft: #ffb454;
+    --line: #2e1b14; --bar-bg: #1c0f0b; --check-mark: #160c0a;
+    --header1: #20120e; --header2: #331a12;
+    --overlay: rgba(10, 4, 3, 0.75);
+    --accent-soft: rgba(255, 90, 60, 0.13);
+    --accent-softer: rgba(255, 90, 60, 0.10);
+    --accent2-soft: rgba(255, 180, 84, 0.13);
+    --tag1-bg: #3a2a24; --tag1-tx: #c4a99b;
+    --tag2-bg: #40260f; --tag2-tx: #ff9d45;
+    --tag3-bg: #401d18; --tag3-tx: #ff7a5c;
+    --imp1: #c4a99b; --imp2: #ff9d45; --imp3: #ff6a4d;
+    --btn-tx: #ffffff; --toast-tx: #ffffff; --badge-tx: #ffffff;
+  }
+
+  body.theme-forest {
+    --bg: #0c1410; --card: #122019; --card2: #182a20; --border: #27402f;
+    --text: #e8f2ea; --muted: #87a58f;
+    --accent: #3ddc84; --accent2: #a3e635; --accent-deep: #22a35f; --soft: #8fe6b8;
+    --line: #1a2a20; --bar-bg: #0f1a14; --check-mark: #0c1410;
+    --header1: #122019; --header2: #14301f;
+    --overlay: rgba(4, 10, 6, 0.75);
+    --accent-soft: rgba(61, 220, 132, 0.12);
+    --accent-softer: rgba(61, 220, 132, 0.09);
+    --accent2-soft: rgba(163, 230, 53, 0.12);
+    --tag1-bg: #24352a; --tag1-tx: #9ab8a2;
+    --tag2-bg: #3a3010; --tag2-tx: #e8c545;
+    --tag3-bg: #3a1f33; --tag3-tx: #f18fd0;
+    --imp1: #9ab8a2; --imp2: #e8c545; --imp3: #f18fd0;
+    --btn-tx: #07271a; --toast-tx: #07271a; --badge-tx: #07271a;
+  }
+
+  body.theme-sky {
+    --bg: #f2f6fb; --card: #ffffff; --card2: #e9f0f8; --border: #d3e0ee;
+    --text: #1f2d3d; --muted: #6b7f95;
+    --accent: #2f7ef7; --accent2: #6db3ff; --accent-deep: #1c5ed8; --soft: #2a6fd6;
+    --line: #e6eef7; --bar-bg: #e3ecf6; --check-mark: #f2f6fb;
+    --header1: #ffffff; --header2: #e8f2fd;
+    --overlay: rgba(25, 40, 60, 0.35);
+    --accent-soft: rgba(47, 126, 247, 0.12);
+    --accent-softer: rgba(47, 126, 247, 0.09);
+    --accent2-soft: rgba(109, 179, 255, 0.12);
+    --tag1-bg: #e8edf3; --tag1-tx: #5c718a;
+    --tag2-bg: #fdeeda; --tag2-tx: #b06a00;
+    --tag3-bg: #f3e6fd; --tag3-tx: #8d3fd1;
+    --imp1: #5c718a; --imp2: #d68910; --imp3: #9b4de0;
+    --btn-tx: #ffffff; --toast-tx: #ffffff; --badge-tx: #ffffff;
+  }
+
+  body.theme-pixel {
+    --bg: #0d0b1e; --card: #1a1530; --card2: #241d42; --border: #4a3f78;
+    --text: #e8e4d8; --muted: #8d86b8;
+    --accent: #f0b429; --accent2: #7bd8ff; --accent-deep: #c98a12; --soft: #ffe08a;
+    --line: #2b2448; --bar-bg: #120f26; --check-mark: #0d0b1e;
+    --header1: #1a1530; --header2: #2e1d4a;
+    --overlay: rgba(4, 3, 12, 0.85);
+    --accent-soft: rgba(240, 180, 41, 0.14);
+    --accent-softer: rgba(240, 180, 41, 0.10);
+    --accent2-soft: rgba(123, 216, 255, 0.12);
+    --tag1-bg: #2e2850; --tag1-tx: #a8a0d0;
+    --tag2-bg: #4a3810; --tag2-tx: #f0b429;
+    --tag3-bg: #3a2050; --tag3-tx: #c58aff;
+    --imp1: #a8a0d0; --imp2: #f0b429; --imp3: #c58aff;
+    --btn-tx: #1a1206; --toast-tx: #1a1206; --badge-tx: #1a1206;
+    --red: #ff5a5a; --orange: #ff9d45; --yellow: #ffe14d; --green: #4de07a;
+  }
+
+  body {
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 60px;
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: linear-gradient(135deg, var(--header1) 0%, var(--header2) 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .logo {
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    white-space: nowrap;
+  }
+
+  .player-info {
+    flex: 1;
+    min-width: 260px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .level-badge {
+    background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+    color: var(--badge-tx);
+    border-radius: 12px;
+    padding: 8px 14px;
+    text-align: center;
+    line-height: 1.15;
+    min-width: 64px;
+  }
+  .level-badge .lvl { font-size: 11px; opacity: 0.85; }
+  .level-badge .num { font-size: 20px; font-weight: 800; }
+
+  .xp-wrap { flex: 1; }
+  .title-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+  .title-row .title { color: var(--soft); font-weight: 600; }
+  .title-row .xp-count { color: var(--muted); }
+
+  .bar {
+    height: 14px;
+    background: var(--bar-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .bar > div {
+    height: 100%;
+    border-radius: 8px;
+    transition: width 0.5s ease, background 0.5s ease;
+  }
+  .fill-xp { background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+
+  .ach-btn {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 10px;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: border-color 0.2s;
+  }
+  .ach-btn:hover { border-color: var(--accent); }
+  .ach-btn.sync-ok { border-color: var(--green); }
+  .ach-btn.sync-err { border-color: var(--red); }
+
+  main { max-width: 900px; margin: 0 auto; padding: 24px 20px; }
+
+  .section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0 16px;
+  }
+  .section-title h2 { font-size: 18px; }
+  .section-title h2 .cat-dot { margin-right: 8px; vertical-align: -1px; }
+  .cat-total { color: var(--muted); font-size: 13px; font-weight: 600; white-space: nowrap; }
+
+  .btn {
+    background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+    color: var(--btn-tx);
+    border: none;
+    border-radius: 10px;
+    padding: 9px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.1s, opacity 0.2s;
+  }
+  .btn:hover { opacity: 0.9; }
+  .btn:active { transform: scale(0.97); }
+  .btn.secondary {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+  .btn.danger { background: linear-gradient(135deg, #c0392b, #922b21); }
+  .btn.small { padding: 5px 10px; font-size: 12px; }
+
+  .new-quest-wrap { position: relative; display: flex; gap: 6px; }
+  .quest-caret { padding: 9px 10px; }
+  .parch-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 280px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 12px 32px var(--overlay);
+    padding: 6px;
+    z-index: 60;
+  }
+  .parch-head { padding: 8px 10px 6px; font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: 0.03em; }
+  .parch-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--text);
+  }
+  .parch-item:hover { background: var(--accent-soft); }
+  .parch-name { flex: 1; font-size: 14px; font-weight: 600; }
+  .parch-count { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .parch-del {
+    border: none;
+    background: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 13px;
+    padding: 3px 6px;
+    border-radius: 6px;
+    line-height: 1;
+  }
+  .parch-del:hover { color: var(--red); background: var(--accent-softer); }
+  .parch-empty { padding: 10px; font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .parch-menu-sep { height: 1px; background: var(--border); margin: 6px 4px; }
+  .arch-item { border: 1px solid var(--border); border-radius: 10px; margin: 8px; overflow: hidden; }
+  .arch-head { display: flex; align-items: center; gap: 10px; padding: 10px 12px; cursor: pointer; }
+  .arch-head:hover { background: var(--accent-soft); }
+  .arch-name { flex: 1; font-weight: 700; font-size: 14px; color: var(--text); }
+  .arch-meta { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .arch-date { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .arch-detail { padding: 10px 12px 12px; border-top: 1px solid var(--border); }
+  .arch-task { font-size: 13px; padding: 3px 0; color: var(--muted); }
+  .arch-task.ok { color: var(--text); }
+  .arch-actions { display: flex; gap: 8px; margin-top: 10px; }
+  .quest-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 16px; }
+  .qf-chip {
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .qf-chip:hover { border-color: var(--accent); }
+  .qf-chip.on { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+  .qf-count { color: var(--muted); font-weight: 500; }
+  .qf-chip.on .qf-count { color: var(--accent); opacity: 0.7; }
+  .obj-type {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 2px 9px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    margin: 2px 0 6px;
+  }
+  .stats .obj-type { margin: 0; }
+
+  .time-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin: 26px 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .time-box:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .time-box .tb-big { font-size: 22px; font-weight: 800; color: var(--accent); }
+  .time-box .tb-sub { color: var(--muted); font-size: 13px; margin-top: 3px; }
+  .time-box .tb-arrow { color: var(--muted); font-size: 18px; }
+  .chron-hero {
+    background: var(--card);
+    border: 1px solid var(--accent);
+    border-radius: 14px;
+    padding: 26px 22px;
+    margin-bottom: 22px;
+    text-align: center;
+  }
+  .chron-hero .ch-time { font-size: 42px; font-weight: 800; }
+  .chron-hero .ch-meta { color: var(--muted); margin-top: 6px; font-size: 14px; }
+  .chron-year {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .chron-year:last-child { border-bottom: none; }
+  .chron-year .cy-label { font-weight: 800; width: 64px; font-size: 17px; }
+  .chron-year .cy-bar { flex: 1; }
+  .chron-year .cy-stats { font-size: 13px; color: var(--muted); text-align: right; white-space: nowrap; }
+  .chron-delta { font-weight: 700; font-size: 13px; }
+  .chron-delta.up { color: var(--green); }
+  .chron-delta.down { color: var(--red); }
+  .chron-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 6px 18px;
+  }
+  .chron-select {
+    background: var(--card2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .cs-cat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+  }
+  .cs-cat summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    list-style: none;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .cs-cat-head { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .cs-cat-name { overflow-wrap: anywhere; }
+  .cs-cat-edit {
+    border: none;
+    background: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 12px;
+    padding: 3px 6px;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+  .cs-cat-edit:hover { color: var(--accent); background: var(--accent-soft); }
+  .cs-cat summary::-webkit-details-marker { display: none; }
+  .cs-cat summary::before { content: "▸"; color: var(--muted); margin-right: 8px; transition: transform 0.15s; }
+  .cs-cat[open] summary::before { transform: rotate(90deg); }
+  .cs-cat-bar { margin: 10px 0 4px; }
+  .cs-task {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 7px 0 7px 18px;
+    border-bottom: 1px solid var(--line);
+    font-size: 13.5px;
+  }
+  .cs-task:last-child { border-bottom: none; }
+  .cs-task-name { color: var(--text); }
+  .cs-task-time { color: var(--muted); white-space: nowrap; }
+  .cs-cat-time { color: var(--accent); white-space: nowrap; font-size: 14px; }
+
+  .mission-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .mission-card h3 { font-size: 15px; line-height: 1.3; }
+  .mc-time { font-size: 24px; font-weight: 800; color: var(--accent); }
+  .mc-time .never { color: var(--muted); font-size: 15px; font-weight: 600; }
+  .mc-stats { display: flex; gap: 10px; color: var(--muted); font-size: 12.5px; flex-wrap: wrap; }
+  .mc-meta { display: flex; gap: 8px; font-size: 12px; color: var(--muted); flex-wrap: wrap; align-items: center; }
+  .mc-cat {
+    background: var(--tag1-bg);
+    color: var(--tag1-tx);
+    padding: 2px 8px;
+    border-radius: 6px;
+  }
+  .mission-card .btn { margin-top: 8px; align-self: flex-start; }
+
+  .mp-toggle {
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: -6px 0 10px;
+  }
+  .mp-toggle:hover { text-decoration: underline; }
+  .mp-list {
+    max-height: 220px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background: var(--card2);
+  }
+  .mp-cat {
+    padding: 8px 12px 4px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .mp-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 7px 12px;
+    cursor: pointer;
+    font-size: 13.5px;
+  }
+  .mp-item:hover { background: var(--accent-soft); }
+  .mp-time { color: var(--muted); white-space: nowrap; font-size: 12.5px; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .obj-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.15s;
+    position: relative;
+  }
+  .obj-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .obj-card.drag-above { box-shadow: 0 -3px 0 var(--accent); }
+  .obj-card.drag-below { box-shadow: 0 3px 0 var(--accent); }
+  .obj-card[draggable="true"] { cursor: grab; }
+  .obj-card[draggable="true"]:active { cursor: grabbing; }
+  .obj-card h3 { font-size: 16px; margin-bottom: 12px; padding-right: 46px; }
+  .obj-card .stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+  .obj-card .pct {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .fill-red { background: linear-gradient(90deg, #c0392b, var(--red)); }
+  .fill-orange { background: linear-gradient(90deg, #d35400, var(--orange)); }
+  .fill-yellow { background: linear-gradient(90deg, #d4ac0d, var(--yellow)); }
+  .fill-green { background: linear-gradient(90deg, #27ae60, var(--green)); }
+  .fill-complete {
+    background: linear-gradient(90deg, #2ecc71, #58d68d, #2ecc71);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+  @keyframes shimmer { 0% {background-position: 0% 0;} 100% {background-position: -200% 0;} }
+
+  .obj-done-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    font-size: 20px;
+  }
+
+  .back-link {
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 14px;
+    margin-bottom: 12px;
+    padding: 0;
+  }
+  .back-link:hover { color: var(--text); }
+
+  .detail-head {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .detail-head h2 { font-size: 22px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .detail-head .stats {
+    display: flex;
+    gap: 18px;
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .head-actions { display: flex; gap: 8px; margin-left: auto; }
+
+  .task-list { list-style: none; }
+  .task-list li {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: opacity 0.3s;
+  }
+  .task-list li.done { opacity: 0.55; }
+
+  .check {
+    width: 22px;
+    height: 22px;
+    border-radius: 7px;
+    border: 2px solid var(--border);
+    background: var(--card2);
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+    font-size: 14px;
+    transition: all 0.2s;
+  }
+  .check:hover { border-color: var(--accent); }
+  li.done .check {
+    background: var(--green);
+    border-color: var(--green);
+    color: var(--check-mark);
+  }
+
+  .task-name { flex: 1; font-size: 15px; }
+  li.done .task-name { text-decoration: line-through; }
+
+  .tag {
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 6px;
+    padding: 3px 8px;
+    white-space: nowrap;
+  }
+  .tag-1 { background: var(--tag1-bg); color: var(--tag1-tx); }
+  .tag-2 { background: var(--tag2-bg); color: var(--tag2-tx); }
+  .tag-3 { background: var(--tag3-bg); color: var(--tag3-tx); }
+
+  .task-xp { font-size: 12px; color: var(--green); font-weight: 700; white-space: nowrap; }
+
+  .task-actions { display: flex; gap: 6px; }
+  .icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    opacity: 0.5;
+    padding: 4px;
+  }
+  .icon-btn:hover { opacity: 1; }
+
+  .task-name[onclick] { cursor: pointer; }
+  .sub-caret { flex-shrink: 0; font-size: 12px; }
+  .sub-badge {
+    flex-shrink: 0;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: 10px;
+    padding: 1px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .sub-badge.complete { color: var(--green); }
+  li.sub-panel {
+    background: var(--accent-softer);
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin: 2px 0 6px 30px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+  .sub-list { list-style: none; margin: 0; padding: 0; }
+  .sub-list li { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: 13px; }
+  .sub-list li.done .sub-name { text-decoration: line-through; opacity: 0.55; }
+  .sub-name { flex: 1; }
+  .sub-check { width: 20px; height: 20px; font-size: 11px; flex-shrink: 0; }
+  .sub-empty { color: var(--muted); font-size: 12.5px; margin-bottom: 8px; }
+  .sub-add { display: flex; gap: 8px; margin-top: 8px; }
+  .sub-add input {
+    flex: 1;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 10px;
+    color: var(--text);
+    font-size: 13px;
+  }
+
+  .dup-link {
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 14px;
+    padding: 2px 5px;
+    border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .dup-link:hover { color: var(--accent); background: var(--accent-soft); }
+
+  .cat-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 18px 0 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--soft);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .cat-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+  .cat-stats { color: var(--muted); font-weight: 500; font-size: 12px; text-transform: none; letter-spacing: 0; }
+  .cat-bar { flex: 1; max-width: 140px; height: 6px; }
+
+  .cat-group {
+    border-radius: 12px;
+    padding: 4px 10px 10px;
+    margin: 0 -10px;
+    transition: background 0.15s;
+  }
+  .cat-group.drag-over {
+    background: var(--accent-softer);
+    outline: 2px dashed var(--accent);
+    outline-offset: 4px;
+  }
+  .cat-group.drop-empty .cat-header { margin-top: 14px; }
+  .drop-hint {
+    color: var(--muted);
+    font-size: 12px;
+    font-style: italic;
+    text-align: center;
+    padding: 10px 6px 2px;
+  }
+  .task-list li[draggable="true"] { cursor: grab; }
+  .task-list li[draggable="true"]:active { cursor: grabbing; }
+
+  .bg-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin: 34px 0 14px;
+    flex-wrap: wrap;
+  }
+  .bg-head h2 { font-size: 18px; }
+  .bg-sub { color: var(--muted); font-size: 12px; margin-top: 3px; }
+  .last-done { font-size: 11px; color: var(--muted); white-space: nowrap; }
+
+  .tl-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .tl-nav h2 { font-size: 20px; }
+  .tl-day { margin-bottom: 16px; }
+  .tl-day-head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 8px;
+    padding: 4px 6px;
+    border-radius: 8px;
+  }
+  .tl-day-name { font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 0.6px; }
+  .tl-day-num { color: var(--muted); font-size: 12px; }
+  .tl-day.today .tl-day-name { color: var(--accent2); }
+  .tl-day.today .tl-day-head { background: var(--accent-softer); }
+  .tl-day.drag-over .tl-day-head { background: var(--accent-soft); outline: 2px dashed var(--accent); outline-offset: 2px; }
+  .tl-origin {
+    font-size: 10px;
+    color: var(--muted);
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 2px 7px;
+    white-space: nowrap;
+  }
+  .tl-empty {
+    color: var(--muted);
+    font-size: 12px;
+    font-style: italic;
+    padding: 8px 6px;
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    text-align: center;
+  }
+  .tl-plan-list li { cursor: pointer; }
+  .tl-plan-list li:hover { border-color: var(--accent); }
+  .plan-link {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 12px;
+    cursor: pointer;
+    padding: 2px 8px;
+    border-radius: 6px;
+  }
+  .plan-link:hover { color: var(--accent); background: var(--accent-softer); }
+
+  .empty {
+    text-align: center;
+    color: var(--muted);
+    padding: 40px 20px;
+    font-size: 14px;
+  }
+
+  .log-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin-top: 28px;
+  }
+  .log-box h3 { font-size: 14px; color: var(--muted); margin-bottom: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .log-entry {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .log-entry:last-child { border-bottom: none; }
+  .log-entry .gain { color: var(--green); font-weight: 600; }
+  .log-entry .when { color: var(--muted); font-size: 12px; }
+
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--overlay);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+  }
+  .modal {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    width: min(440px, 92vw);
+    max-height: 85vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .modal h3 { font-size: 17px; margin-bottom: 16px; }
+  .modal p.hint { color: var(--muted); font-size: 13px; margin-bottom: 14px; }
+  .modal input[type=text], .modal input[type=number], .modal input[type=date] {
+    width: 100%;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 14px;
+    outline: none;
+  }
+  .modal input:focus { border-color: var(--accent); }
+  .modal input[type=date] { color-scheme: dark; }
+  body.theme-gold .modal input[type=date], body.theme-sky .modal input[type=date] { color-scheme: light; }
+  .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 6px; }
+
+  .imp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+  .imp-choice {
+    background: var(--card2);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 6px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .imp-choice .mult { font-size: 17px; font-weight: 800; }
+  .imp-choice .lbl { font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .imp-choice.selected-1 { border-color: var(--imp1); }
+  .imp-choice.selected-2 { border-color: var(--imp2); }
+  .imp-choice.selected-3 { border-color: var(--imp3); }
+  .imp-choice.imp-monster .mult { font-size: 26px; color: #ff4d6d; text-shadow: 0 0 8px rgba(255, 45, 85, 0.6); }
+  .imp-choice.selected-monster { border-color: #ff4d6d; box-shadow: 0 0 14px rgba(255, 45, 85, 0.55); }
+
+  .xp-preview {
+    background: linear-gradient(135deg, var(--accent-soft), var(--accent2-soft));
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+    font-size: 15px;
+    margin-bottom: 14px;
+  }
+  .xp-preview .val { font-size: 22px; font-weight: 800; color: var(--soft); }
+
+  .ach-list { list-style: none; }
+  .ach-list li {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding: 12px 6px;
+    border-bottom: 1px solid var(--line);
+  }
+  .ach-list li:last-child { border-bottom: none; }
+  .ach-list li.locked { opacity: 0.45; }
+  .ach-icon { font-size: 26px; width: 38px; text-align: center; }
+  .ach-name { font-weight: 700; font-size: 14px; }
+  .ach-desc { color: var(--muted); font-size: 12px; }
+  .ach-date { margin-left: auto; font-size: 11px; color: var(--muted); white-space: nowrap; }
+
+  .theme-list li {
+    cursor: pointer;
+    border-bottom: none;
+    border-radius: 10px;
+    padding: 12px 10px;
+    transition: background 0.15s;
+  }
+  .theme-list li:hover { background: var(--card2); }
+  .theme-list li.active { outline: 2px solid var(--accent); }
+  .sw { display: inline-flex; gap: 5px; align-items: center; flex-shrink: 0; }
+  .sw-dot { width: 16px; height: 16px; border-radius: 50%; border: 1px solid var(--border); display: inline-block; }
+
+  #toasts {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+  }
+  .toast {
+    background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+    color: var(--toast-tx);
+    border-radius: 12px;
+    padding: 14px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    animation: slideIn 0.35s ease;
+    max-width: 320px;
+  }
+  .toast.gold { background: linear-gradient(135deg, #d4ac0d, #b7950b); color: #1a1a0e; }
+  @keyframes slideIn { from { transform: translateX(60px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+  .fx-particle, .fx-ring, .fx-xp {
+    position: fixed;
+    pointer-events: none;
+    z-index: 200;
+  }
+  .fx-ring {
+    width: 14px;
+    height: 14px;
+    border: 3px solid var(--green);
+    border-radius: 50%;
+    animation: fxRing 0.6s ease-out forwards;
+  }
+  @keyframes fxRing {
+    from { opacity: 0.9; transform: translate(-50%, -50%) scale(0.3); }
+    to { opacity: 0; transform: translate(-50%, -50%) scale(4.5); }
+  }
+  .fx-xp {
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--green);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+    white-space: nowrap;
+    animation: fxXp 1.2s ease-out forwards;
+  }
+  .fx-xp.big {
+    font-size: 34px;
+    color: #f1c40f;
+    text-shadow: 0 3px 14px rgba(0,0,0,0.75);
+    animation-duration: 1.7s;
+  }
+  @keyframes fxXp {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
+    15% { opacity: 1; transform: translate(-50%, -90%) scale(1.25); }
+    30% { transform: translate(-50%, -100%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -280%) scale(1); }
+  }
+  .fx-particle { border-radius: 2px; }
+  .task-list li.just-done .check { animation: checkPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  @keyframes checkPop {
+    0% { transform: scale(0.2) rotate(-40deg); }
+    55% { transform: scale(1.3) rotate(10deg); }
+    100% { transform: scale(1) rotate(0deg); }
+  }
+  .bar > div.gain-flash { animation: gainFlash 0.6s ease; }
+  @keyframes gainFlash { from { filter: brightness(1.9); } to { filter: brightness(1); } }
+
+  footer {
+    text-align: center;
+    margin-top: 36px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+  footer button {
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 12px;
+  }
+
+  /* ---- Thème Donjon 8-bit : habillage pixel art ---- */
+
+  body.theme-pixel::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      radial-gradient(1.5px 1.5px at 40px 60px, rgba(232, 228, 216, 0.5) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 140px 180px, rgba(123, 216, 255, 0.4) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 260px 90px, rgba(232, 228, 216, 0.35) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 90px 300px, rgba(255, 224, 138, 0.4) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 320px 260px, rgba(232, 228, 216, 0.3) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 200px 400px, rgba(197, 138, 255, 0.35) 50%, transparent 51%),
+      radial-gradient(circle at 50% 115%, #2e1d4a 0%, #1a1530 34%, #0d0b1e 70%);
+    background-size: 360px 440px, 360px 440px, 360px 440px, 360px 440px, 360px 440px, 360px 440px, 100% 100%;
+  }
+
+  body.theme-pixel .logo {
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    color: var(--accent);
+    text-shadow: 2px 2px 0 #6b4a08, 0 0 12px rgba(240, 180, 41, 0.45);
+  }
+
+  body.theme-pixel .level-badge {
+    background: linear-gradient(180deg, #f0b429 0%, #c98a12 100%);
+    border: 2px solid #6b4a08;
+    border-radius: 0;
+    box-shadow: inset 2px 2px 0 rgba(255, 235, 180, 0.7), inset -2px -2px 0 rgba(80, 50, 0, 0.5), 3px 3px 0 rgba(0, 0, 0, 0.55);
+  }
+
+  body.theme-pixel .btn { border-radius: 0; box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.55); border: 2px solid rgba(0, 0, 0, 0.4); }
+  body.theme-pixel .btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.55); }
+  body.theme-pixel .btn.secondary { box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.45); }
+
+  body.theme-pixel .ach-btn { border-radius: 0; border: 2px solid var(--border); }
+
+  body.theme-pixel .obj-card,
+  body.theme-pixel .mission-card,
+  body.theme-pixel .detail-head,
+  body.theme-pixel .time-box,
+  body.theme-pixel .chron-hero,
+  body.theme-pixel .chron-box,
+  body.theme-pixel .log-box,
+  body.theme-pixel .cs-cat {
+    border-radius: 0;
+    border: 2px solid var(--border);
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.45);
+  }
+
+  body.theme-pixel .obj-card { border-color: #5a4a8a; }
+  body.theme-pixel .obj-card:hover { border-color: var(--accent); box-shadow: 4px 4px 0 rgba(240, 180, 41, 0.25); }
+
+  body.theme-pixel .task-list li {
+    border-radius: 0;
+    border: 2px solid var(--line);
+  }
+
+  body.theme-pixel .check { border-radius: 0; border: 2px solid var(--border); }
+  body.theme-pixel .tag { border-radius: 0; border: 1px solid rgba(0, 0, 0, 0.4); }
+  body.theme-pixel .mc-cat { border-radius: 0; }
+  body.theme-pixel .tl-origin { border-radius: 0; }
+  body.theme-pixel .tl-empty { border-radius: 0; }
+  body.theme-pixel .cat-dot { border-radius: 0; }
+
+  body.theme-pixel .bar { border-radius: 0; height: 16px; border: 2px solid var(--border); }
+  body.theme-pixel .bar > div { border-radius: 0; }
+  body.theme-pixel .fill-xp { background-image: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.25) 0 4px, transparent 4px 8px), linear-gradient(90deg, var(--accent), var(--accent2)); }
+
+  body.theme-pixel .modal { border-radius: 0; border: 3px solid var(--accent); box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.6); }
+  body.theme-pixel .modal input[type=text], body.theme-pixel .modal input[type=number], body.theme-pixel .modal input[type=date] { border-radius: 0; }
+  body.theme-pixel .imp-choice { border-radius: 0; }
+  body.theme-pixel .xp-preview { border-radius: 0; }
+  body.theme-pixel .chron-select { border-radius: 0; }
+  body.theme-pixel .mp-list { border-radius: 0; }
+  body.theme-pixel .parch-menu { border-radius: 0; box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.55); }
+
+  body.theme-pixel .toast { border-radius: 0; border: 2px solid rgba(0, 0, 0, 0.5); box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.6); }
+  body.theme-pixel .toast.gold { border-color: #6b4a08; }
+
+  body.theme-pixel .fx-particle { border-radius: 0; }
+  body.theme-pixel .fx-xp { text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8); }
+
+  body.theme-pixel header {
+    border-bottom: 3px solid var(--accent);
+    box-shadow: 0 3px 0 rgba(240, 180, 41, 0.15), 0 10px 26px rgba(4, 3, 12, 0.8);
+  }
+
+  body.theme-pixel .theme-list li { border-radius: 0; }
+  body.theme-pixel .sw-dot { border-radius: 0; }
+
+  body.theme-pixel .obj-card .obj-done-badge { text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6); }
+
+  /* ---- Thème Blanc et Or : habillage donjon pixel ---- */
+
+  body.theme-gold::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      radial-gradient(1.5px 1.5px at 40px 60px, rgba(184, 144, 31, 0.5) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 140px 180px, rgba(227, 192, 90, 0.45) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 260px 90px, rgba(184, 144, 31, 0.35) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 90px 300px, rgba(125, 115, 88, 0.3) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 320px 260px, rgba(227, 192, 90, 0.4) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 200px 400px, rgba(184, 144, 31, 0.3) 50%, transparent 51%),
+      conic-gradient(from 0deg, #f6efdd 0% 25%, #faf6ec 25% 50%, #f6efdd 50% 75%, #faf6ec 75% 100%);
+    background-size: 360px 440px, 360px 440px, 360px 440px, 360px 440px, 360px 440px, 360px 440px, 44px 44px;
+  }
+
+  body.theme-gold .logo {
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    color: var(--accent);
+    text-shadow: 2px 2px 0 rgba(227, 192, 90, 0.6);
+  }
+
+  body.theme-gold header {
+    border-bottom: 3px solid #c9a437;
+    box-shadow: 0 4px 0 rgba(227, 192, 90, 0.35);
+  }
+  body.theme-gold header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -13px;
+    height: 7px;
+    background: repeating-linear-gradient(90deg, #c9a437 0 10px, transparent 10px 24px);
+    pointer-events: none;
+  }
+
+  body.theme-gold .level-badge {
+    background: linear-gradient(180deg, #e3c05a 0%, #b8901f 100%);
+    border: 2px solid #8a6a14;
+    border-radius: 0;
+    box-shadow: inset 2px 2px 0 rgba(255, 244, 205, 0.75), inset -2px -2px 0 rgba(90, 65, 10, 0.4), 3px 3px 0 rgba(147, 115, 26, 0.3);
+  }
+
+  body.theme-gold .btn { border-radius: 0; border: 2px solid #8a6a14; box-shadow: 3px 3px 0 rgba(147, 115, 26, 0.35); }
+  body.theme-gold .btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 rgba(147, 115, 26, 0.35); }
+  body.theme-gold .btn.secondary { border: 2px solid var(--border); box-shadow: 3px 3px 0 rgba(147, 115, 26, 0.22); }
+  body.theme-gold .btn.danger { border-color: #7c241c; }
+
+  body.theme-gold .ach-btn { border-radius: 0; }
+
+  body.theme-gold .obj-card,
+  body.theme-gold .mission-card,
+  body.theme-gold .detail-head,
+  body.theme-gold .time-box,
+  body.theme-gold .chron-hero,
+  body.theme-gold .chron-box,
+  body.theme-gold .log-box,
+  body.theme-gold .cs-cat {
+    border-radius: 0;
+    border: 2px solid #c9a437;
+    box-shadow: inset 0 0 0 1px #fffdf4, inset 0 0 0 2px rgba(227, 192, 90, 0.5), 4px 4px 0 rgba(147, 115, 26, 0.22);
+  }
+
+  body.theme-gold .obj-card:hover {
+    border-color: var(--accent);
+    box-shadow: inset 0 0 0 1px #fffdf4, inset 0 0 0 2px rgba(227, 192, 90, 0.7), 4px 4px 0 rgba(184, 144, 31, 0.4);
+  }
+  body.theme-gold .obj-card.drag-above { box-shadow: 0 -4px 0 var(--accent); }
+  body.theme-gold .obj-card.drag-below { box-shadow: 0 4px 0 var(--accent); }
+
+  body.theme-gold .obj-card::before,
+  body.theme-gold .obj-card::after {
+    content: "";
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    background: #e3c05a;
+    box-shadow: 0 0 0 1px #fffdf4, 0 0 0 2px #c9a437;
+  }
+  body.theme-gold .obj-card::before { top: 4px; left: 4px; }
+  body.theme-gold .obj-card::after { bottom: 4px; right: 4px; }
+
+  body.theme-gold .task-list li {
+    border-radius: 0;
+    border: 1px solid #d9bd6b;
+    box-shadow: inset 3px 0 0 #b8901f;
+  }
+
+  body.theme-gold .check { border-radius: 0; border: 2px solid #cbb173; }
+  body.theme-gold .tag { border-radius: 0; border: 1px solid rgba(184, 144, 31, 0.45); }
+  body.theme-gold .mc-cat { border-radius: 0; }
+  body.theme-gold .tl-origin { border-radius: 0; }
+  body.theme-gold .tl-empty { border-radius: 0; }
+  body.theme-gold .cat-dot { border-radius: 0; }
+
+  body.theme-gold .bar { border-radius: 0; height: 16px; border: 2px solid #cbb173; }
+  body.theme-gold .bar > div { border-radius: 0; }
+  body.theme-gold .fill-xp { background-image: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0 4px, transparent 4px 8px), linear-gradient(90deg, var(--accent), var(--accent2)); }
+
+  body.theme-gold .modal { border-radius: 0; border: 3px solid #c9a437; box-shadow: 6px 6px 0 rgba(147, 115, 26, 0.3); }
+  body.theme-gold .modal input[type=text], body.theme-gold .modal input[type=number], body.theme-gold .modal input[type=date] { border-radius: 0; }
+  body.theme-gold .imp-choice { border-radius: 0; }
+  body.theme-gold .xp-preview { border-radius: 0; }
+  body.theme-gold .chron-select { border-radius: 0; }
+  body.theme-gold .mp-list { border-radius: 0; }
+  body.theme-gold .parch-menu { border-radius: 0; box-shadow: 5px 5px 0 rgba(147, 115, 26, 0.28); }
+
+  body.theme-gold .toast { border-radius: 0; border: 2px solid #8a6a14; box-shadow: 4px 4px 0 rgba(147, 115, 26, 0.3); }
+  body.theme-gold .toast.gold { border-color: #8a6a14; }
+
+  body.theme-gold .fx-particle { border-radius: 0; }
+  body.theme-gold .fx-xp { text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.8); }
+
+  body.theme-gold .theme-list li { border-radius: 0; }
+  body.theme-gold .sw-dot { border-radius: 0; }
+
+  /* ---- Missions monstres : rouge sang, crocs en os, lueur ---- */
+
+  .monster-chip {
+    flex-shrink: 0;
+    font-size: 15px;
+    filter: drop-shadow(0 0 5px rgba(255, 45, 85, 0.8));
+  }
+  .task-list li.monster {
+    position: relative;
+    background: linear-gradient(140deg, #4a0e18, #22040a 75%);
+    border: 1px solid #8a1830;
+    box-shadow: 0 0 16px rgba(255, 45, 85, 0.4), inset 0 0 22px rgba(0, 0, 0, 0.55);
+    color: #ffd9de;
+    margin: 10px 8px 18px;
+  }
+  .task-list li.monster .task-name,
+  .task-list li.monster .last-done { color: #ffd9de; }
+  .task-list li.monster .task-xp { color: #ff97a8; }
+  .task-list li.monster .tag { background: rgba(255, 45, 85, 0.18); color: #ff5c78; text-shadow: 0 0 6px rgba(255, 45, 85, 0.55); }
+  .task-list li.monster .sub-badge { background: rgba(255, 255, 255, 0.15); color: #ffd9de; }
+  .task-list li.monster .sub-badge.complete { color: #ff97a8; }
+  .task-list li.monster .check { border-color: #ff4d6d; }
+  .task-list li.monster.done .check { background: var(--green); border-color: var(--green); }
+
+ </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">⚔️ QUEST</div>
+  <div class="player-info">
+    <div class="level-badge">
+      <div class="lvl">Niveau</div>
+      <div class="num" id="hLevel">1</div>
+    </div>
+    <div class="xp-wrap">
+      <div class="title-row">
+        <span class="title" id="hTitle">Novice</span>
+        <span class="xp-count" id="hXp">0 XP</span>
+      </div>
+      <div class="bar"><div class="fill-xp" id="hBar" style="width:0%"></div></div>
+    </div>
+  </div>
+  <button class="ach-btn" id="cloudBtn" onclick="openCloudModal()" title="Sauvegarde cloud">☁️</button>
+  <button class="ach-btn" id="syncBtn" onclick="syncClick()" title="Synchroniser avec Obsidian">💾 Obsidian</button>
+  <button class="ach-btn" onclick="goTimeline()" title="Vue semaine">📅 Semaine</button>
+  <button class="ach-btn" onclick="goMissions()" title="Toutes tes missions, regroupées">🗂️ Missions</button>
+  <button class="ach-btn" onclick="goChroniques()" title="Temps de travail et années">⏱</button>
+  <button class="ach-btn" onclick="openThemes()" title="Changer de thème">🎨</button>
+  <button class="ach-btn" onclick="openAchievements()">🏆 <span id="hAchCount">0/13</span></button>
+</header>
+
+<main>
+  <section id="viewHome">
+    <div class="section-title">
+      <h2>🎯 Quêtes</h2>
+      <div class="new-quest-wrap">
+        <button class="btn" onclick="openObjectiveModal()">+ Nouvelle quête</button>
+        <button class="btn quest-caret" onclick="toggleParchMenu(event)" title="Lancer depuis un parchemin">▾</button>
+        <div class="parch-menu" id="parchMenu" hidden></div>
+      </div>
+    </div>
+    <div id="questFilters" class="quest-filters"></div>
+    <div class="grid" id="objGrid"></div>
+    <div class="time-box" id="timeBox" onclick="goChroniques()" title="Voir les Chroniques du temps"></div>
+    <div id="bgSection"></div>
+    <div id="homeLog"></div>
+  </section>
+
+  <section id="viewDetail" hidden>
+    <button class="back-link" onclick="goHome()">← Retour aux quêtes</button>
+    <div id="detailContent"></div>
+  </section>
+
+  <section id="viewTimeline" hidden>
+    <button class="back-link" onclick="goHome()">← Retour aux quêtes</button>
+    <div id="timelineContent"></div>
+  </section>
+
+  <section id="viewChroniques" hidden>
+    <button class="back-link" onclick="goHome()">← Retour aux quêtes</button>
+    <div id="chronContent"></div>
+  </section>
+
+  <section id="viewMissions" hidden>
+    <button class="back-link" onclick="goHome()">← Retour aux quêtes</button>
+    <div id="missionsContent"></div>
+  </section>
+
+  <footer>
+    Données stockées localement dans ce navigateur ·
+    <button onclick="exportData()">Exporter</button> ·
+    <button onclick="document.getElementById('importFile').click()">Importer</button>
+    <input type="file" id="importFile" accept=".json" hidden onchange="importData(event)">
+  </footer>
+</main>
+
+<div class="overlay" id="overlay" hidden>
+  <div class="modal" id="modalBox"></div>
+</div>
+
+<div id="toasts"></div>
+
+<script>
+"use strict";
+
+const STORAGE_KEY = "bossquest-data-v1";
+
+const TITLES = {
+  1: "Novice",
+  2: "Apprenti",
+  3: "Explorateur",
+  4: "Aventurier",
+  5: "Joueur aguerri",
+  6: "Stratège",
+  7: "Combattant",
+  8: "Chevalier du jeu",
+  9: "Champion",
+  10: "Maître de jeu",
+  12: "Architecte du jeu",
+  15: "Boss final",
+  20: "Légende vivante"
+};
+
+const IMPORTANCE = {
+  1: { label: "Peu important", icon: "🕓", examples: "trier des emails" },
+  2: { label: "Moyen", icon: "⚔️", examples: "compta, inscrits, messages" },
+  3: { label: "Prioritaire", icon: "👑", examples: "marketing, copy, stages" }
+};
+
+const ACHIEVEMENTS = [
+  { id: "first", icon: "👣", name: "Premier pas", desc: "Cocher sa première mission", test: s => s.log.length >= 1 },
+  { id: "ten", icon: "🔥", name: "En roue libre", desc: "10 missions terminées", test: s => s.log.length >= 10 },
+  { id: "hundred", icon: "💯", name: "Centurion", desc: "100 missions terminées", test: s => s.log.length >= 100 },
+  { id: "obj1", icon: "🎯", name: "Quête accomplie", desc: "Terminer une quête à 100%", test: s => completedObjectives(s) >= 1 },
+  { id: "obj3", icon: "🏰", name: "Grand stratège", desc: "Terminer 3 quêtes à 100%", test: s => completedObjectives(s) >= 3 },
+  { id: "xp1k", icon: "⭐", name: "Mille XP", desc: "Atteindre 1000 XP", test: s => s.xp >= 1000 },
+  { id: "xp10k", icon: "🌟", name: "Dix mille XP", desc: "Atteindre 10000 XP", test: s => s.xp >= 10000 },
+  { id: "marathon", icon: "🏃", name: "Marathon", desc: "Une mission de 90 minutes ou plus", test: s => s.log.some(e => e.minutes >= 90) },
+  { id: "sprint", icon: "⚡", name: "Sprint", desc: "5 missions terminées dans la même journée", test: s => maxTasksPerDay(s) >= 5 },
+  { id: "multi", icon: "🤹", name: "Multicartes", desc: "De l'XP gagné dans 3 quêtes différentes", test: s => new Set(s.log.map(e => e.objectiveId)).size >= 3 },
+  { id: "bg20", icon: "⚙️", name: "Intendant", desc: "20 missions de fond accomplies", test: s => s.log.filter(e => e.objectiveId === "background").length >= 20 },
+  { id: "parch", icon: "📜", name: "Archiviste", desc: "Mettre une quête en parchemin", test: s => s.parchemins.length >= 1 },
+  { id: "lvl5", icon: "🛡️", name: "Niveau 5", desc: "Atteindre le niveau 5", test: s => levelInfo(s.xp).level >= 5 },
+  { id: "lvl10", icon: "👑", name: "Niveau 10", desc: "Atteindre le niveau 10", test: s => levelInfo(s.xp).level >= 10 }
+];
+
+const THEMES = [
+  { id: "default", name: "Nuit violette", desc: "Le donjon original", sw: ["#8b5cf6", "#ec4899", "#0e1016"] },
+  { id: "gold", name: "Blanc et Or", desc: "Donjon de marbre et trésors", sw: ["#b8901f", "#e3c05a", "#faf6ec"] },
+  { id: "arcade", name: "Arcade néon", desc: "Cour de récré des années 90", sw: ["#00e5ff", "#ff2fb0", "#0b0714"] },
+  { id: "playfight", name: "Playfight", desc: "Énergie de combat", sw: ["#ff5a3c", "#ffb454", "#160c0a"] },
+  { id: "forest", name: "Forêt", desc: "Fraîcheur nature", sw: ["#3ddc84", "#a3e635", "#0c1410"] },
+  { id: "sky", name: "Ciel clair", desc: "Légèreté bleue", sw: ["#2f7ef7", "#6db3ff", "#f2f6fb"] },
+  { id: "pixel", name: "Donjon 8-bit", desc: "Pixel art héroïque, or et donjon", sw: ["#f0b429", "#7bd8ff", "#0d0b1e"] }
+];
+
+const THEME_KEY = "bossquest-theme";
+
+function currentTheme() {
+  return localStorage.getItem(THEME_KEY) || "default";
+}
+
+function applyTheme(id) {
+  document.body.classList.remove("theme-default", "theme-gold", "theme-arcade", "theme-playfight", "theme-forest", "theme-sky", "theme-pixel");
+  if (id && id !== "default") document.body.classList.add("theme-" + id);
+}
+
+function setTheme(id) {
+  applyTheme(id);
+  localStorage.setItem(THEME_KEY, id);
+  openThemes();
+}
+
+function openThemes() {
+  const cur = currentTheme();
+  const rows = THEMES.map(t =>
+    "<li class='" + (cur === t.id ? "active" : "") + "' onclick=\"setTheme('" + t.id + "')\">" +
+    "<span class='sw'>" + t.sw.map(c => "<span class='sw-dot' style='background:" + c + "'></span>").join("") + "</span>" +
+    "<span><span class='ach-name'>" + t.name + "</span><br><span class='ach-desc'>" + t.desc + "</span></span>" +
+    "<span class='ach-date'>" + (cur === t.id ? "✔ actif" : "") + "</span>" +
+    "</li>"
+  ).join("");
+  openModal(
+    "<h3>🎨 Thèmes</h3>" +
+    "<ul class='ach-list theme-list'>" + rows + "</ul>" +
+    "<p class='hint'>Clique pour essayer, ça change tout de suite. Le choix est mémorisé.</p>" +
+    "<div class='modal-actions'><button class='btn' onclick='closeModal()'>Fermer</button></div>"
+  );
+}
+
+let state = loadState();
+let currentView = "home";
+
+function defaultState() {
+  return { xp: 0, objectives: [], background: [], log: [], unlocked: {}, parchemins: [], archive: [] };
+}
+
+function normalizeState(s) {
+  const normItems = t => {
+    t.items = (Array.isArray(t.items) ? t.items : [])
+      .filter(it => it && it.name)
+      .map(it => ({ id: it.id || uid(), name: String(it.name), done: !!it.done }));
+    t.monster = !!t.monster;
+    return t;
+  };
+  return {
+    xp: s.xp || 0,
+    objectives: Array.isArray(s.objectives) ? s.objectives.map(o => {
+      if (Array.isArray(o.tasks)) o.tasks.forEach(normItems);
+      o.cat = String(o.cat || "");
+      return o;
+    }) : [],
+    background: Array.isArray(s.background) ? s.background.map(normItems) : [],
+    log: Array.isArray(s.log) ? s.log : [],
+    unlocked: s.unlocked || {},
+    parchemins: Array.isArray(s.parchemins) ? s.parchemins : [],
+    archive: Array.isArray(s.archive) ? s.archive.map(o => {
+      if (Array.isArray(o.tasks)) o.tasks.forEach(normItems);
+      o.cat = String(o.cat || "");
+      return o;
+    }) : [],
+    updatedAt: s.updatedAt || ""
+  };
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return defaultState();
+    return normalizeState(JSON.parse(raw));
+  } catch (e) {
+    return defaultState();
+  }
+}
+
+function saveState() {
+  state.updatedAt = new Date().toISOString();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  scheduleSync();
+  scheduleCloudPush();
+}
+
+function uid() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+}
+
+function lastLogIndexOf(taskId) {
+  for (let i = state.log.length - 1; i >= 0; i--) {
+    if (state.log[i].taskId === taskId) return i;
+  }
+  return -1;
+}
+
+function xpRate(task) {
+  return task.monster ? 10 : task.imp;
+}
+
+function levelThreshold(level) {
+  return 50 * level * (level - 1);
+}
+
+function levelInfo(xp) {
+  let level = 1;
+  while (xp >= levelThreshold(level + 1)) level++;
+  const cur = levelThreshold(level);
+  const need = levelThreshold(level + 1) - cur;
+  const done = xp - cur;
+  const pct = Math.min(100, Math.round((done / need) * 100));
+  return { level, need, done, pct };
+}
+
+function titleFor(level) {
+  let t = TITLES[1];
+  const keys = Object.keys(TITLES).map(Number).sort((a, b) => a - b);
+  for (const k of keys) if (level >= k) t = TITLES[k];
+  return t;
+}
+
+function esc(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function completedObjectives(s) {
+  const all = s.objectives.concat(Array.isArray(s.archive) ? s.archive : []);
+  return all.filter(o => o.tasks.length > 0 && o.tasks.every(t => t.done)).length;
+}
+
+function maxTasksPerDay(s) {
+  const counts = {};
+  for (const e of s.log) {
+    const day = e.date.slice(0, 10);
+    counts[day] = (counts[day] || 0) + 1;
+  }
+  return Object.values(counts).reduce((m, c) => Math.max(m, c), 0);
+}
+
+function objectiveStats(obj) {
+  const total = obj.tasks.length;
+  const done = obj.tasks.filter(t => t.done).length;
+  const xp = obj.tasks.reduce((sum, t) => sum + (t.done ? t.xp : 0), 0);
+  const pct = total === 0 ? 0 : Math.round((done / total) * 100);
+  return { total, done, xp, pct };
+}
+
+function fillClass(pct) {
+  if (pct >= 100) return "fill-complete";
+  if (pct >= 75) return "fill-green";
+  if (pct >= 50) return "fill-yellow";
+  if (pct >= 25) return "fill-orange";
+  return "fill-red";
+}
+
+const CAT_COLORS = ["#8b5cf6", "#ec4899", "#f39c12", "#2ecc71", "#3498db", "#e74c3c"];
+
+function catColor(name) {
+  let h = 0;
+  for (const ch of name) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+  return CAT_COLORS[h % CAT_COLORS.length];
+}
+
+function allCategories() {
+  const set = new Set();
+  state.objectives.forEach(o => o.tasks.forEach(t => { if (t.cat) set.add(t.cat); }));
+  state.background.forEach(t => { if (t.cat) set.add(t.cat); });
+  return Array.from(set).sort((a, b) => a.localeCompare(b, "fr"));
+}
+
+function allQuestCats() {
+  const set = new Set();
+  state.objectives.forEach(o => { if (o.cat) set.add(o.cat); });
+  (state.archive || []).forEach(o => { if (o.cat) set.add(o.cat); });
+  return Array.from(set).sort((a, b) => a.localeCompare(b, "fr"));
+}
+
+function groupByCat(tasks) {
+  const map = {};
+  for (const t of tasks) {
+    const c = t.cat || "";
+    (map[c] = map[c] || []).push(t);
+  }
+  return Object.keys(map).sort((a, b) => {
+    if (a === "") return 1;
+    if (b === "") return -1;
+    return a.localeCompare(b, "fr");
+  }).map(cat => ({ cat, tasks: map[cat] }));
+}
+
+function catStats(obj, cat) {
+  const all = obj.tasks.filter(t => (t.cat || "") === cat);
+  const done = all.filter(t => t.done);
+  const xp = done.reduce((sum, t) => sum + t.xp, 0);
+  const pct = all.length === 0 ? 0 : Math.round((done.length / all.length) * 100);
+  return { total: all.length, done: done.length, xp, pct };
+}
+
+function catGroupHtml(obj, tasks, cat, isDone) {
+  const st = catStats(obj, cat);
+  const label = cat === "" ? "Sans catégorie" : cat;
+  const color = cat === "" ? "#8b90a5" : catColor(cat);
+  let html = "<div class='cat-group' data-cat=\"" + esc(cat) + "\" " +
+    "ondragover='dragOverCat(event)' ondragenter='dragEnterCat(event)' ondragleave='dragLeaveCat(event)' " +
+    "ondrop='dropOnCat(event,\"" + obj.id + "\")'>" +
+    "<div class='cat-header'>" +
+    "<span class='cat-dot' style='background:" + color + "'></span>" +
+    "<span>" + esc(label) + "</span>" +
+    (isDone
+      ? "<span class='cat-stats'>" + st.xp + " XP</span>"
+      : "<span class='cat-stats'>" + st.done + "/" + st.total + " · " + st.xp + " XP</span>" +
+        "<div class='bar cat-bar'><div style='width:" + st.pct + "%;background:" + color + "'></div></div>") +
+    "</div>";
+  html += "<ul class='task-list'>" + tasks.map(t => taskItem(obj.id, t)).join("") + "</ul>";
+  html += "</div>";
+  return html;
+}
+
+function emptyCatDropZone(objId) {
+  return "<div class='cat-group drop-empty' data-cat=\"\" " +
+    "ondragover='dragOverCat(event)' ondragenter='dragEnterCat(event)' ondragleave='dragLeaveCat(event)' " +
+    "ondrop='dropOnCat(event,\"" + objId + "\")'>" +
+    "<div class='cat-header'>" +
+    "<span class='cat-dot' style='background:#8b90a5'></span>" +
+    "<span>Sans catégorie</span>" +
+    "</div>" +
+    "<div class='drop-hint'>Dépose une mission ici pour retirer sa catégorie</div>" +
+    "</div>";
+}
+
+window._drag = null;
+
+function dragTask(e, objId, taskId) {
+  window._drag = { objId, taskId };
+  e.dataTransfer.effectAllowed = "move";
+  e.dataTransfer.setData("text/plain", taskId);
+}
+
+function dragEnd() {
+  window._drag = null;
+  document.querySelectorAll(".drag-over").forEach(el => el.classList.remove("drag-over"));
+}
+
+function dragOverCat(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = "move";
+}
+
+function dragEnterCat(e) {
+  if (e.currentTarget.contains(e.relatedTarget)) return;
+  e.currentTarget.classList.add("drag-over");
+}
+
+function dragLeaveCat(e) {
+  if (e.currentTarget.contains(e.relatedTarget)) return;
+  e.currentTarget.classList.remove("drag-over");
+}
+
+function dropOnCat(e, objId) {
+  e.preventDefault();
+  const info = window._drag;
+  dragEnd();
+  if (!info) return;
+  const cat = e.currentTarget.getAttribute("data-cat") || "";
+  const obj = state.objectives.find(o => o.id === objId);
+  const task = obj ? obj.tasks.find(t => t.id === info.taskId) : null;
+  if (!task) return;
+  if ((task.cat || "") === cat) return;
+  task.cat = cat;
+  saveState();
+  render();
+  toast("↪ " + task.name + " → " + (cat === "" ? "Sans catégorie" : cat), false);
+}
+
+function render() {
+  renderHeader();
+  const home = document.getElementById("viewHome");
+  const detail = document.getElementById("viewDetail");
+  const timeline = document.getElementById("viewTimeline");
+  const chroniques = document.getElementById("viewChroniques");
+  const missions = document.getElementById("viewMissions");
+  if (currentView === "home") {
+    home.hidden = false;
+    detail.hidden = true;
+    timeline.hidden = true;
+    chroniques.hidden = true;
+    missions.hidden = true;
+    renderHome();
+  } else if (currentView === "timeline") {
+    home.hidden = true;
+    detail.hidden = true;
+    timeline.hidden = false;
+    chroniques.hidden = true;
+    missions.hidden = true;
+    renderTimeline();
+  } else if (currentView === "chroniques") {
+    home.hidden = true;
+    detail.hidden = true;
+    timeline.hidden = true;
+    chroniques.hidden = false;
+    missions.hidden = true;
+    renderChroniques();
+  } else if (currentView === "missions") {
+    home.hidden = true;
+    detail.hidden = true;
+    timeline.hidden = true;
+    chroniques.hidden = true;
+    missions.hidden = false;
+    renderMissions();
+  } else {
+    home.hidden = true;
+    detail.hidden = false;
+    timeline.hidden = true;
+    chroniques.hidden = true;
+    missions.hidden = true;
+    renderDetail(currentView);
+  }
+}
+
+function renderHeader() {
+  const info = levelInfo(state.xp);
+  document.getElementById("hLevel").textContent = info.level;
+  document.getElementById("hTitle").textContent = titleFor(info.level);
+  document.getElementById("hXp").textContent = state.xp + " XP · " + info.done + "/" + info.need + " vers niv. " + (info.level + 1);
+  document.getElementById("hBar").style.width = info.pct + "%";
+  const unlockedCount = Object.keys(state.unlocked).length;
+  document.getElementById("hAchCount").textContent = unlockedCount + "/" + ACHIEVEMENTS.length;
+}
+
+let questCatFilter = "";
+
+function jsq(s) {
+  return String(s).replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+}
+
+function renderQuestFilters() {
+  const box = document.getElementById("questFilters");
+  if (!box) return;
+  if (state.objectives.length === 0) { box.innerHTML = ""; return; }
+  const counts = {};
+  let none = 0;
+  state.objectives.forEach(o => { if (o.cat) counts[o.cat] = (counts[o.cat] || 0) + 1; else none++; });
+  const cats = Object.keys(counts).sort((a, b) => a.localeCompare(b, "fr"));
+  const chip = (val, label, count) =>
+    "<button class='qf-chip" + (questCatFilter === val ? " on" : "") + "' onclick=\"setQuestCatFilter('" + jsq(val) + "')\">" +
+    esc(label) + " <span class='qf-count'>" + count + "</span></button>";
+  let html = chip("", "Toutes", state.objectives.length);
+  cats.forEach(c => { html += chip(c, c, counts[c]); });
+  if (none > 0) html += chip("__none", "Sans catégorie", none);
+  box.innerHTML = html;
+}
+
+function setQuestCatFilter(v) {
+  questCatFilter = v;
+  render();
+}
+
+function renderHome() {
+  renderQuestFilters();
+  const grid = document.getElementById("objGrid");
+  const filtered = questCatFilter === "" ? state.objectives
+    : questCatFilter === "__none" ? state.objectives.filter(o => !o.cat)
+    : state.objectives.filter(o => o.cat === questCatFilter);
+  if (filtered.length === 0) {
+    grid.innerHTML = questCatFilter === ""
+      ? "<div class='empty'>Aucune quête pour l'instant.<br>Crée ta première quête et lance la partie ⚔️</div>"
+      : "<div class='empty'>Aucune quête dans cette catégorie.</div>";
+  } else {
+    grid.innerHTML = filtered.map(obj => {
+      const st = objectiveStats(obj);
+      const complete = st.pct >= 100;
+      const drag = questCatFilter === ""
+        ? " draggable='true' " +
+          "ondragstart='dragObjective(event,\"" + obj.id + "\")' ondragend='endDragObjective()' " +
+          "ondragover='objDragOver(event)' ondrop='dropObjective(event,\"" + obj.id + "\")' "
+        : "";
+      return "<div class='obj-card'" + drag +
+        "onclick=\"openObjective('" + obj.id + "')\">" +
+        (complete ? "<div class='obj-done-badge'>🏆</div>" : "") +
+        "<h3>" + esc(obj.name) + "</h3>" +
+        (obj.cat ? "<div class='obj-type'>" + esc(obj.cat) + "</div>" : "") +
+        "<div class='pct'>" + st.pct + "%</div>" +
+        "<div class='bar'><div class='" + fillClass(st.pct) + "' style='width:" + st.pct + "%'></div></div>" +
+        "<div class='stats'><span>" + st.done + "/" + st.total + " missions</span><span>" + st.xp + " XP gagnés</span><span class='dup-link' title='Dupliquer cette quête' onclick=\"event.stopPropagation();duplicateObjective('" + obj.id + "')\">⧉</span></div>" +
+        "</div>";
+    }).join("");
+  }
+  renderBackground();
+  renderTimeBox();
+  renderHomeLog();
+}
+
+function renderBackground() {
+  const box = document.getElementById("bgSection");
+  const head = "<div class='bg-head'><div><h2>⚙️ Intendance</h2>" +
+    "<div class='bg-sub'>Missions récurrentes du fonctionnement de fond · rejouables à volonté</div></div>" +
+    "<button class='btn' onclick='openBgTaskModal()'>+ Mission de fond</button></div>";
+  if (state.background.length === 0) {
+    box.innerHTML = head +
+      "<div class='empty'>Tes routines : trier les emails, compta du mois, réponse aux prospects...<br>Chaque passage rapporte de l'XP, sans date de fin.</div>";
+    return;
+  }
+  const hasCats = state.background.some(t => t.cat);
+  let body = "";
+  if (hasCats) {
+    for (const g of groupByCat(state.background)) body += bgGroupHtml(g.tasks, g.cat);
+  } else {
+    body = "<ul class='task-list'>" + state.background.map(bgTaskItem).join("") + "</ul>";
+  }
+  box.innerHTML = head + body;
+}
+
+function bgGroupHtml(tasks, cat) {
+  const color = cat === "" ? "#8b90a5" : catColor(cat);
+  const doneCount = tasks.filter(t => t.done).length;
+  return "<div class='cat-header'>" +
+    "<span class='cat-dot' style='background:" + color + "'></span>" +
+    "<span>" + esc(cat === "" ? "Sans catégorie" : cat) + "</span>" +
+    "<span class='cat-stats'>" + doneCount + "/" + tasks.length + " fait</span>" +
+    "</div>" +
+    "<ul class='task-list'>" + tasks.map(bgTaskItem).join("") + "</ul>";
+}
+
+function bgTaskItem(t) {
+  const imp = IMPORTANCE[t.imp];
+  const open = window._openSubtasks.has(t.id);
+  return "<li id='task-li-" + t.id + "' class='" + (t.done ? "done" : "") + (t.monster ? " monster" : "") + "'>" +
+    "<div class='check' onclick=\"toggleBgTask('" + t.id + "',event)\">✔</div>" +
+    (t.monster ? "<span class='monster-chip'>👹</span>" : "") +
+    "<span class='task-name' onclick=\"toggleSubtasks('background','" + t.id + "',event)\">" + esc(t.name) + "</span>" +
+    subBadge(t) +
+    (t.due ? "<span class='last-done'>📅 " + shortDate(t.due) + "</span>" : "") +
+    (t.done
+      ? "<span class='task-xp'>+" + t.xp + " XP</span>" +
+        "<span class='last-done'>· " + (t.lastDone ? formatDate(t.lastDone) : "") + "</span>" +
+        "<button class='icon-btn' title='Remettre en jeu' onclick=\"resetBgTask('" + t.id + "')\">↺</button>"
+      : "") +
+    "<span class='tag tag-" + t.imp + "'>" + (t.monster ? "💀 ×" + xpRate(t) : imp.icon + " ×" + t.imp) + "</span>" +
+    "<span class='icon-btn sub-caret' title='Tâches de la mission' onclick=\"toggleSubtasks('background','" + t.id + "',event)\">" + (open ? "▾" : "▸") + "</span>" +
+    "<span class='task-actions'>" +
+    "<button class='icon-btn' title='Modifier' onclick=\"openBgTaskModal('" + t.id + "')\">✏️</button>" +
+    "<button class='icon-btn' title='Supprimer' onclick=\"confirmDeleteBgTask('" + t.id + "')\">🗑️</button>" +
+    "</span>" +
+    "</li>" +
+    (open ? subPanelLi("background", t) : "");
+}
+
+function renderHomeLog() {
+  const box = document.getElementById("homeLog");
+  if (state.log.length === 0) {
+    box.innerHTML = "";
+    return;
+  }
+  const entries = state.log.slice(-6).reverse();
+  box.innerHTML = "<div class='log-box'><h3>Dernières victoires</h3>" +
+    entries.map(e => {
+      const objName = e.objectiveId === "background"
+        ? "Intendance"
+        : ((state.objectives.find(o => o.id === e.objectiveId) || {}).name || "");
+      return "<div class='log-entry'><span>✅ " + esc(e.taskName) + (objName ? " · " + esc(objName) : "") + "</span>" +
+        "<span><span class='gain'>+" + e.xp + " XP</span> <span class='when'>· " + e.minutes + " min × " + e.mult + " · " + formatDate(e.date) + "</span></span></div>";
+    }).join("") +
+    "</div>";
+}
+
+function formatDate(iso) {
+  const d = new Date(iso);
+  const today = new Date();
+  const isToday = d.toDateString() === today.toDateString();
+  if (isToday) return "aujourd'hui";
+  return d.toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
+}
+
+function yearStats(year) {
+  const entries = state.log.filter(e => new Date(e.date).getFullYear() === year);
+  const minutes = entries.reduce((sum, e) => sum + e.minutes, 0);
+  const xp = entries.reduce((sum, e) => sum + e.xp, 0);
+  let first = null;
+  for (const e of entries) {
+    const d = new Date(e.date);
+    if (!first || d < first) first = d;
+  }
+  return { minutes, xp, count: entries.length, first };
+}
+
+function fmtHours(minutes) {
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+  if (h === 0) return m + " min";
+  return h + "h" + (m < 10 ? "0" + m : m);
+}
+
+function logYears() {
+  const years = new Set(state.log.map(e => new Date(e.date).getFullYear()));
+  years.add(new Date().getFullYear());
+  return Array.from(years).sort((a, b) => b - a);
+}
+
+function renderTimeBox() {
+  const box = document.getElementById("timeBox");
+  const y = yearStats(new Date().getFullYear());
+  if (y.count === 0) {
+    box.innerHTML = "<div><div class='tb-big'>0 min</div><div class='tb-sub'>Coche ta première mission pour démarrer le compteur</div></div><span class='tb-arrow'>→</span>";
+    return;
+  }
+  box.innerHTML = "<div><div class='tb-big'>" + fmtHours(y.minutes) + "</div>" +
+    "<div class='tb-sub'>de travail en " + new Date().getFullYear() + " · compteur lancé le " +
+    y.first.toLocaleDateString("fr-FR", { day: "numeric", month: "long" }) + "</div></div>" +
+    "<span class='tb-arrow'>→</span>";
+}
+
+function goChroniques() {
+  currentView = "chroniques";
+  render();
+}
+
+function renderChroniques() {
+  const box = document.getElementById("chronContent");
+  const years = logYears();
+  const curYear = new Date().getFullYear();
+  let html = "<div class='section-title'><h2>⏱ Chroniques du temps</h2></div>";
+
+  const cur = yearStats(curYear);
+  html += "<div class='chron-hero'>" +
+    "<div class='ch-time'>" + fmtHours(cur.minutes) + "</div>" +
+    "<div class='ch-meta'>en " + curYear + "</div>";
+  if (cur.count > 0) {
+    html += "<div class='ch-meta'>" + cur.count + " missions accomplies · " + cur.xp + " XP gagnés · compteur lancé le " +
+      cur.first.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" }) + "</div>";
+  } else {
+    html += "<div class='ch-meta'>Le compteur démarre à ta première mission cochée</div>";
+  }
+  html += "</div>";
+
+  if (years.length > 1) {
+    html += "<div class='chron-box'>";
+    let prev = null;
+    for (const y of years.slice().reverse()) {
+      const st = yearStats(y);
+      const maxMin = Math.max(...years.map(w => yearStats(w).minutes), 1);
+      const pct = Math.round((st.minutes / maxMin) * 100);
+      let delta = "";
+      if (prev && prev.minutes > 0) {
+        const diff = Math.round(((st.minutes - prev.minutes) / prev.minutes) * 100);
+        if (diff >= 0) delta = " <span class='chron-delta up'>+" + diff + "%</span>";
+        else delta = " <span class='chron-delta down'>" + diff + "%</span>";
+      }
+      html += "<div class='chron-year'>" +
+        "<span class='cy-label'>" + y + "</span>" +
+        "<div class='cy-bar'><div class='bar'><div class='fill-xp' style='width:" + pct + "%'></div></div></div>" +
+        "<div class='cy-stats'><strong>" + fmtHours(st.minutes) + "</strong> · " + st.count + " missions · " + st.xp + " XP" + delta + "</div>" +
+        "</div>";
+      prev = st;
+    }
+    html += "</div>";
+  } else {
+    html += "<p class='hint'>Les années précédentes apparaîtront ici, avec leur temps de travail et leur progression d'une année sur l'autre.</p>";
+  }
+
+  html += "<div class='section-title'><h2>📊 Où passe ton temps</h2>" +
+    (years.length > 1
+      ? "<select class='chron-select' onchange='renderCatStats(this.value)'>" +
+        years.map(y => "<option value='" + y + "'" + (y === (window._chronYear || curYear) ? " selected" : "") + ">" + y + "</option>").join("") +
+        "</select>"
+      : "") +
+    "</div>";
+  html += "<div id='catStatsBox'></div>";
+
+  box.innerHTML = html;
+  renderCatStats(window._chronYear || curYear);
+}
+
+function fmtPct(part, total) {
+  if (total === 0) return "0%";
+  const pct = (part / total) * 100;
+  if (pct > 0 && pct < 10) return pct.toFixed(1).replace(".", ",") + "%";
+  return Math.round(pct) + "%";
+}
+
+function catOfEntry(e) {
+  if (e.cat) return e.cat;
+  for (const o of state.objectives) {
+    const t = o.tasks.find(x => x.id === e.taskId);
+    if (t) return t.cat || "";
+  }
+  const bg = state.background.find(x => x.id === e.taskId);
+  if (bg) return bg.cat || "";
+  return "";
+}
+
+function renderCatStats(year) {
+  window._chronYear = parseInt(year, 10);
+  const box = document.getElementById("catStatsBox");
+  if (!box) return;
+  const entries = state.log.filter(e => new Date(e.date).getFullYear() === window._chronYear);
+  const total = entries.reduce((sum, e) => sum + e.minutes, 0);
+  if (total === 0) {
+    box.innerHTML = "<p class='hint'>Aucun temps enregistré en " + window._chronYear + ". Coche des missions pour remplir ces stats.</p>";
+    return;
+  }
+  const cats = new Map();
+  for (const e of entries) {
+    const cat = catOfEntry(e) || "Sans catégorie";
+    if (!cats.has(cat)) cats.set(cat, { minutes: 0, tasks: new Map() });
+    const c = cats.get(cat);
+    c.minutes += e.minutes;
+    c.tasks.set(e.taskName, (c.tasks.get(e.taskName) || 0) + e.minutes);
+  }
+  const sorted = Array.from(cats.entries()).sort((a, b) => {
+    if (a[0] === "Sans catégorie") return 1;
+    if (b[0] === "Sans catégorie") return -1;
+    return b[1].minutes - a[1].minutes;
+  });
+  window._chronCats = sorted.map(x => x[0]);
+  box.innerHTML = sorted.map(([cat, c], i) => {
+    const pct = Math.round((c.minutes / total) * 100);
+    const taskRows = Array.from(c.tasks.entries()).sort((a, b) => b[1] - a[1]).map(([name, min]) =>
+      "<div class='cs-task'><span class='cs-task-name'>" + esc(name) + "</span>" +
+      "<span class='cs-task-time'>" + fmtHours(min) + " · " + fmtPct(min, total) + "</span></div>"
+    ).join("");
+    const editBtn = cat === "Sans catégorie"
+      ? ""
+      : "<button class='cs-cat-edit' title='Renommer cette catégorie' onclick='event.preventDefault();event.stopPropagation();openCatRename(" + i + ")'>✏️</button>";
+    return "<details class='cs-cat' open>" +
+      "<summary><span class='cs-cat-head'><span class='cs-cat-name'>" + esc(cat) + "</span>" + editBtn + "</span>" +
+      "<span class='cs-cat-time'>" + fmtHours(c.minutes) + " · " + fmtPct(c.minutes, total) + "</span></summary>" +
+      "<div class='cs-cat-bar'><div class='bar'><div class='fill-xp' style='width:" + pct + "%'></div></div></div>" +
+      taskRows +
+      "</details>";
+  }).join("");
+}
+
+function missionIndex() {
+  const map = new Map();
+  const add = name => {
+    if (!map.has(name)) map.set(name, { name, minutes: 0, times: 0, xp: 0, cats: new Set(), places: new Set(), todo: 0 });
+    return map.get(name);
+  };
+  for (const e of state.log) {
+    const m = add(e.taskName);
+    m.minutes += e.minutes;
+    m.times++;
+    m.xp += e.xp;
+    if (e.cat) m.cats.add(e.cat);
+  }
+  for (const o of state.objectives) {
+    for (const t of o.tasks) {
+      const m = add(t.name);
+      if (!t.done) m.todo++;
+      if (t.cat) m.cats.add(t.cat);
+      m.places.add(o.name);
+    }
+  }
+  for (const t of state.background) {
+    const m = add(t.name);
+    if (!t.done) m.todo++;
+    if (t.cat) m.cats.add(t.cat);
+    m.places.add("Intendance");
+  }
+  return Array.from(map.values()).sort((a, b) =>
+    b.minutes - a.minutes || b.times - a.times || a.name.localeCompare(b.name, "fr")
+  );
+}
+
+function goMissions() {
+  currentView = "missions";
+  render();
+}
+
+function renderMissions() {
+  const box = document.getElementById("missionsContent");
+  window._missions = missionIndex();
+  if (window._missions.length === 0) {
+    box.innerHTML = "<div class='empty'>Aucune mission pour l'instant.<br>Crée des missions dans tes quêtes et l'Intendance ⚔️</div>";
+    return;
+  }
+  const groups = new Map();
+  for (let i = 0; i < window._missions.length; i++) {
+    const m = window._missions[i];
+    const cat = m.cats.size === 1 ? Array.from(m.cats)[0] : "";
+    if (!groups.has(cat)) groups.set(cat, []);
+    groups.get(cat).push(i);
+  }
+  const catTime = cat => groups.get(cat).reduce((s, i) => s + window._missions[i].minutes, 0);
+  const catOrder = Array.from(groups.keys()).sort((a, b) => {
+    if (!a) return 1;
+    if (!b) return -1;
+    return catTime(b) - catTime(a);
+  });
+  const card = i => {
+    const m = window._missions[i];
+    const cat = m.cats.size === 1
+      ? Array.from(m.cats)[0]
+      : (m.cats.size > 1 ? m.cats.size + " catégories" : "");
+    const places = m.places.size === 0
+      ? "aucune quête active"
+      : (m.places.size === 1 ? Array.from(m.places)[0] : m.places.size + " quêtes");
+    return "<div class='mission-card'>" +
+      "<h3>" + esc(m.name) + "</h3>" +
+      (m.minutes > 0
+        ? "<div class='mc-time'>" + fmtHours(m.minutes) + "</div>"
+        : "<div class='mc-time'><span class='never'>Jamais accomplie</span></div>") +
+      "<div class='mc-stats'>" +
+      (m.times > 0 ? "<span>" + m.times + "×</span>" : "") +
+      (m.xp > 0 ? "<span>" + m.xp + " XP</span>" : "") +
+      (m.todo > 0 ? "<span>" + m.todo + " à faire</span>" : "") +
+      "</div>" +
+      "<div class='mc-meta'>" + (cat ? "<span class='mc-cat'>" + esc(cat) + "</span>" : "") + "<span>" + esc(places) + "</span></div>" +
+      "<button class='btn secondary small' onclick='openRenameMission(" + i + ")'>✏️ Renommer</button>" +
+      "</div>";
+  };
+  let html = "<div class='section-title'><h2>🗂️ Missions</h2></div>" +
+    "<p class='hint'>Une carte par mission, où qu'elle vive (quêtes, Intendance, historique). Renomme les variantes d'une même mission pour regrouper leurs stats : si le nom existe déjà, la fusion est proposée.</p>";
+  for (const cat of catOrder) {
+    const color = cat === "" ? "#8b90a5" : catColor(cat);
+    const label = cat === "" ? "Sans catégorie" : cat;
+    html += "<div class='section-title'>" +
+      "<h2><span class='cat-dot' style='background:" + color + "'></span>" + esc(label) + "</h2>" +
+      "<span class='cat-total'>" + fmtHours(catTime(cat)) + "</span>" +
+      "</div>" +
+      "<div class='grid'>" + groups.get(cat).map(idx => card(idx)).join("") + "</div>";
+  }
+  box.innerHTML = html;
+}
+
+function openRenameMission(idx) {
+  const m = window._missions[idx];
+  if (!m) return;
+  openModal(
+    "<h3>✏️ Renommer la mission</h3>" +
+    "<p class='hint'>Toutes les occurrences de « " + esc(m.name) + " » seront renommées, historique compris. Si une carte porte déjà ce nom, les deux seront fusionnées.</p>" +
+    "<input type='text' id='mMissionName' placeholder='Nom de la mission' value='" + esc(m.name) + "'>" +
+    "<div class='modal-actions'>" +
+    "<button class='btn secondary' onclick='closeModal()'>Annuler</button>" +
+    "<button class='btn' onclick='saveMissionRename(" + idx + ")'>Renommer</button>" +
+    "</div>"
+  );
+  document.getElementById("mMissionName").focus();
+}
+
+function saveMissionRename(idx) {
+  const m = window._missions[idx];
+  if (!m) return;
+  const newName = document.getElementById("mMissionName").value.trim();
+  if (!newName || newName === m.name) { closeModal(); return; }
+  const exists = window._missions.some(x => x.name === newName);
+  if (exists) {
+    window._renameCtx = { oldName: m.name, newName };
+    openModal(
+      "<h3>🔗 Fusionner les missions ?</h3>" +
+      "<p class='hint'>Une carte « " + esc(newName) + " » existe déjà. Tout « " + esc(m.name) + " » sera regroupé dedans : temps, XP et historique s'additionnent.</p>" +
+      "<div class='modal-actions'>" +
+      "<button class='btn secondary' onclick='closeModal()'>Annuler</button>" +
+      "<button class='btn' onclick='applyRenameCtx()'>Fusionner</button>" +
+      "</div>"
+    );
+    return;
+  }
+  applyMissionRename(m.name, newName);
+}
+
+function applyRenameCtx() {
+  const ctx = window._renameCtx;
+  if (!ctx) return;
+  applyMissionRename(ctx.oldName, ctx.newName, true);
+}
+
+function applyMissionRename(oldName, newName, fused) {
+  for (const o of state.objectives) {
+    for (const t of o.tasks) if (t.name === oldName) t.name = newName;
+  }
+  for (const t of state.background) if (t.name === oldName) t.name = newName;
+  for (const e of state.log) if (e.taskName === oldName) e.taskName = newName;
+  saveState();
+  closeModal();
+  render();
+  if (fused) toast("🔗 Missions fusionnées : " + newName, true);
+  else toast("✏️ Mission renommée : " + newName, false);
+}
+
+function missionPickerHtml() {
+  window._pickerMissions = missionIndex();
+  if (window._pickerMissions.length === 0) return "";
+  const groups = new Map();
+  for (let i = 0; i < window._pickerMissions.length; i++) {
+    const m = window._pickerMissions[i];
+    const cat = m.cats.size === 1 ? Array.from(m.cats)[0] : "";
+    if (!groups.has(cat)) groups.set(cat, []);
+    groups.get(cat).push(i);
+  }
+  const catTime = cat => groups.get(cat).reduce((s, i) => s + window._pickerMissions[i].minutes, 0);
+  const catOrder = Array.from(groups.keys()).sort((a, b) => {
+    if (!a) return 1;
+    if (!b) return -1;
+    return catTime(b) - catTime(a);
+  });
+  let rows = "";
+  for (const cat of catOrder) {
+    rows += "<div class='mp-cat'>" + (cat ? esc(cat) : "Sans catégorie") + "</div>";
+    for (const i of groups.get(cat)) {
+      const m = window._pickerMissions[i];
+      rows += "<div class='mp-item' onclick='pickMission(" + i + ")'>" +
+        "<span>" + esc(m.name) + "</span>" +
+        "<span class='mp-time'>" + (m.minutes > 0 ? fmtHours(m.minutes) : "jamais") + "</span>" +
+        "</div>";
+    }
+  }
+  return "<div class='mp-toggle' onclick='toggleMissionPicker()'>📂 Réutiliser une mission existante ▾</div>" +
+    "<div class='mp-list' id='missionPicker' hidden>" + rows + "</div>";
+}
+
+function toggleMissionPicker() {
+  const box = document.getElementById("missionPicker");
+  if (box) box.hidden = !box.hidden;
+}
+
+function pickMission(idx) {
+  const m = window._pickerMissions[idx];
+  if (!m) return;
+  document.getElementById("mTaskName").value = m.name;
+  if (m.cats.size === 1) document.getElementById("mTaskCat").value = Array.from(m.cats)[0];
+  const box = document.getElementById("missionPicker");
+  if (box) box.hidden = true;
+}
+
+function openCatRename(idx) {
+  const cat = (window._chronCats || [])[idx];
+  if (!cat || cat === "Sans catégorie") return;
+  openModal(
+    "<h3>✏️ Renommer la catégorie</h3>" +
+    "<p class='hint'>« " + esc(cat) + " » sera renommée partout : missions, quêtes, Intendance et historique. Si une catégorie porte déjà ce nom, elles fusionneront.</p>" +
+    "<input type='text' id='mCatName' placeholder='Nom de la catégorie' value='" + esc(cat) + "'>" +
+    "<div class='modal-actions'>" +
+    "<button class='btn secondary' onclick='closeModal()'>Annuler</button>" +
+    "<button class='btn' onclick='saveCatRename(" + idx + ")'>Renommer</button>" +
+    "</div>"
+  );
+  document.getElementById("mCatName").focus();
+}
+
+function saveCatRename(idx) {
+  const oldName = (window._chronCats || [])[idx];
+  if (!oldName) return;
+  const newName = document.getElementById("mCatName").value.trim();
+  if (!newName || newName === oldName) { closeModal(); return; }
+  let fused = false;
+  for (const o of state.objectives) for (const t of o.tasks) if (t.cat === newName) fused = true;
+  for (const t of state.background) if (t.cat === newName) fused = true;
+  for (const e of state.log) if (e.cat === newName) fused = true;
+  for (const o of state.objectives) for (const t of o.tasks) if (t.cat === oldName) t.cat = newName;
+  for (const t of state.background) if (t.cat === oldName) t.cat = newName;
+  for (const e of state.log) if (e.cat === oldName) e.cat = newName;
+  saveState();
+  closeModal();
+  render();
+  if (fused) toast("🔗 Catégories fusionnées : " + newName, true);
+  else toast("✏️ Catégorie renommée : " + newName, false);
+}
+
+function openObjective(id) {
+  currentView = id;
+  render();
+}
+
+function goHome() {
+  currentView = "home";
+  render();
+}
+
+function renderDetail(objId) {
+  const obj = state.objectives.find(o => o.id === objId);
+  const box = document.getElementById("detailContent");
+  if (!obj) {
+    currentView = "home";
+    render();
+    return;
+  }
+  const st = objectiveStats(obj);
+  const todo = obj.tasks.filter(t => !t.done);
+  const done = obj.tasks.filter(t => t.done);
+  const hasCats = obj.tasks.some(t => t.cat);
+
+  let html = "<div class='detail-head'>" +
+    "<h2>" + esc(obj.name) +
+    "<span class='head-actions'>" +
+    "<button class='btn secondary small' onclick=\"openObjectiveModal('" + obj.id + "')\">✏️ Renommer</button>" +
+    "<button class='btn secondary small' title='Mettre cette quête de côté, prête à rejouer' onclick=\"createParcheminFromQuest('" + obj.id + "')\">📜 Parchemin</button>" +
+    "<button class='btn secondary small' title='Ranger cette quête : sort du jeu, tout est conservé' onclick=\"archiveObjective('" + obj.id + "')\">🗄️ Archiver</button>" +
+    "<button class='btn secondary small' onclick=\"duplicateObjective('" + obj.id + "')\">⧉ Dupliquer</button>" +
+    "<button class='btn danger small' onclick=\"confirmDeleteObjective('" + obj.id + "')\">🗑️</button>" +
+    "</span></h2>" +
+    "<div class='bar' style='height:18px'><div class='" + fillClass(st.pct) + "' style='width:" + st.pct + "%'></div></div>" +
+    "<div class='stats'>" + (obj.cat ? "<span class='obj-type'>" + esc(obj.cat) + "</span>" : "") + "<span>" + st.done + "/" + st.total + " missions</span><span>" + st.xp + " XP gagnés sur cette quête</span></div>" +
+    "</div>";
+
+  html += "<div class='section-title'><h2>📋 À faire (" + todo.length + ")</h2>" +
+    "<button class='btn' onclick=\"openTaskModal('" + obj.id + "')\">+ Nouvelle mission</button></div>";
+
+  if (todo.length === 0) html += "<div class='empty'>Rien à faire ici. Soit c'est fini 🏆, soit il faut créer des missions.</div>";
+  else if (hasCats) {
+    for (const g of groupByCat(todo)) html += catGroupHtml(obj, g.tasks, g.cat, false);
+    if (!todo.some(t => !t.cat)) html += emptyCatDropZone(obj.id);
+  }
+  else html += "<ul class='task-list'>" + todo.map(t => taskItem(obj.id, t)).join("") + "</ul>";
+
+  if (done.length > 0) {
+    html += "<div class='section-title'><h2>✅ Fait (" + done.length + ")</h2></div>";
+    if (hasCats) { for (const g of groupByCat(done)) html += catGroupHtml(obj, g.tasks, g.cat, true); }
+    else html += "<ul class='task-list'>" + done.map(t => taskItem(obj.id, t)).join("") + "</ul>";
+  }
+
+  box.innerHTML = html;
+}
+
+function taskItem(objId, t) {
+  const imp = IMPORTANCE[t.imp];
+  const open = window._openSubtasks.has(t.id);
+  return "<li id='task-li-" + t.id + "' class='" + (t.done ? "done" : "") + (t.monster ? " monster" : "") + "' draggable='true' " +
+    "ondragstart='dragTask(event,\"" + objId + "\",\"" + t.id + "\")' ondragend='dragEnd()'>" +
+    "<div class='check' onclick=\"toggleTask('" + objId + "','" + t.id + "',event)\">✔</div>" +
+    (t.monster ? "<span class='monster-chip'>👹</span>" : "") +
+    "<span class='task-name' onclick=\"toggleSubtasks('" + objId + "','" + t.id + "',event)\">" + esc(t.name) + "</span>" +
+    subBadge(t) +
+    (t.due ? "<span class='last-done'>📅 " + shortDate(t.due) + "</span>" : "") +
+    (t.done
+      ? "<span class='task-xp'>+" + t.xp + " XP (" + t.minutes + " min)</span>" +
+        "<button class='icon-btn' title='Remettre en jeu' onclick=\"replayTask('" + objId + "','" + t.id + "')\">↺</button>"
+      : "") +
+    "<span class='tag tag-" + t.imp + "'>" + (t.monster ? "💀 ×" + xpRate(t) : imp.icon + " ×" + t.imp) + "</span>" +
+    "<span class='icon-btn sub-caret' title='Tâches de la mission' onclick=\"toggleSubtasks('" + objId + "','" + t.id + "',event)\">" + (open ? "▾" : "▸") + "</span>" +
+    "<span class='task-actions'>" +
+    "<button class='icon-btn' title='Modifier' onclick=\"openTaskModal('" + objId + "','" + t.id + "')\">✏️</button>" +
+    "<button class='icon-btn' title='Supprimer' onclick=\"confirmDeleteTask('" + objId + "','" + t.id + "')\">🗑️</button>" +
+    "</span>" +
+    "</li>" +
+    (open ? subPanelLi(objId, t) : "");
+}
+
+function closeModal() {
+  document.getElementById("overlay").hidden = true;
+  document.getElementById("modalBox").innerHTML = "";
+}
+
+function openModal(html) {
+  document.getElementById("modalBox").innerHTML = html;
+  document.getElementById("overlay").hidden = false;
+}
+
+document.getElementById("overlay").addEventListener("click", e => {
+  if (e.target.id === "overlay") closeModal();
+});
+
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") { closeModal(); closeParchMenu(); }
+});
+
+document.addEventListener("click", e => {
+  const menu = document.getElementById("parchMenu");
+  if (menu && !menu.hidden && !menu.contains(e.target) && !e.target.closest(".quest-caret")) closeParchMenu();
+});
+
+function openObjectiveModal(objId) {
+  const obj = objId ? state.objectives.find(o => o.id === objId) : null;
+  openModal(
+    "<h3>" + (obj ? "Renommer la quête" : "Nouvelle quête") + "</h3>" +
+    "<input type='text' id='mObjName' placeholder='Ex : Remplir le stage de Toulouse' value='" + (obj ? esc(obj.name) : "") + "'>" +
+    "<input type='text' id='mObjCat' list='questCatList' placeholder='Catégorie (optionnel) : stages, travail de fond...' value='" + (obj && obj.cat ? esc(obj.cat) : "") + "'>" +
+    "<datalist id='questCatList'>" + allQuestCats().map(c => "<option value='" + esc(c) + "'>").join("") + "</datalist>" +
+    "<p class='hint'>Une catégorie n'existe plus dès que plus aucune quête ne l'utilise.</p>" +
+    "<div class='modal-actions'>" +
+    "<button class='btn secondary' onclick='closeModal()'>Annuler</button>" +
+    "<button class='btn' onclick='saveObjective(\"" + (objId || "") + "\")'>Enregistrer</button>" +
+    "</div>"
+  );
+  document.getElementById("mObjName").focus();
+}
+
+function saveObjective(objId) {
+  const name = document.getElementById("mObjName").value.trim();
+  if (!name) return;
+  const cat = (document.getElementById("mObjCat").value || "").trim();
+  if (objId) {
+    const obj = state.objectives.find(o => o.id === objId);
+    if (obj) { obj.name = name; obj.cat = cat; }
+  } else {
+    state.objectives.push({ id: uid(), name, cat, tasks: [] });
+    currentView = "home";
+  }
+  saveState();
+  closeModal();
+  render();
+}
+
+function openTaskModal(objId, taskId) {
+  const obj = state.objectives.find(o => o.id === objId);
+  if (!obj) return;
+  const task = taskId ? obj.tasks.find(t => t.id === taskId) : null;
+  const impChoices = impChoicesHtml(task);
+  openModal(
+    "<h3>" + (task ? "Modifier la mission" : "Nouvelle mission") + "</h3>" +
+    "<input type='text' id='mTaskName' placeholder='La mission à accomplir' value='" + (task ? esc(task.name) : "") + "'>" +
+    missionPickerHtml() +
+    "<input type='text' id='mTaskCat' list='catList' placeholder='Catégorie (optionnel) : marketing, logistique...' value='" + (task && task.cat ? esc(task.cat) : "") + "'>" +
+    "<datalist id='catList'>" + allCategories().map(c => "<option value='" + esc(c) + "'>").join("") + "</datalist>" +
+    "<p class='hint'>Planifiée le (optionnel, apparaît dans la vue Semaine) :</p>" +
+    "<input type='date' id='mTaskDue' value='" + (task && task.due ? task.due : "") + "'>" +
+    "<p class='hint'>Importance : le multiplicateur appliqué à chaque minute passée.</p>" +
+    "<div class='imp-grid'>" + impChoices + "</div>" +
+    (task && task.done
+      ? "<p class='hint'>Temps passé (modifier ajuste les XP gagnés).</p>" +
+        "<input type='number' id='mTaskMinutes' min='1' step='1' value='" + task.minutes + "' placeholder='Minutes'>"
+      : "") +
+    "<div class='modal-actions'>" +
+    "<button class='btn secondary' onclick='closeModal()'>Annuler</button>" +
+    "<button class='btn' onclick='saveTask(\"" + objId + "\",\"" + (taskId || "") + "\")'>Enregistrer</button>" +
+    "</div>"
+  );
+  document.getElementById("mTaskName").focus();
+}
+
+function impChoicesHtml(task) {
+  window._taskImp = task ? task.imp : 2;
+  window._taskMonster = task ? !!task.monster : false;
+  const cls = i => window._taskMonster
+    ? (i === 0 ? " selected-monster" : "")
+    : (window._taskImp === i ? " selected-" + i : "");
+  const card = (i, mult, lbl) =>
+    "<div class='imp-choice" + cls(i) + (i === 0 ? " imp-monster" : "") + "' id='imp" + (i === 0 ? "M" : i) + "' onclick='" + (i === 0 ? "selectMonster()" : "selectImp(" + i + ")") + "'>" +
+    "<div class='mult'>" + mult + "</div><div class='lbl'>" + lbl + "</div></div>";
+  return card(1, "×1", IMPORTANCE[1].label + "<br>" + IMPORTANCE[1].examples) +
+    card(2, "×2", IMPORTANCE[2].label + "<br>" + IMPORTANCE[2].examples) +
+    card(3, "×3", IMPORTANCE[3].label + "<br>" + IMPORTANCE[3].examples) +
+    card(0, "👹 ×10", "Monstre");
+}
+
+function selectImp(i) {
+  window._taskImp = i;
+  window._taskMonster = false;
+  refreshRateChoices();
+}
+
+function selectMonster() {
+  window._taskMonster = true;
+  refreshRateChoices();
+}
+
+function refreshRateChoices() {
+  [1, 2, 3].forEach(k => {
+    const el = document.getElementById("imp" + k);
+    if (el) el.className = "imp-choice" + (!window._taskMonster && window._taskImp === k ? " selected-" + k : "");
+  });
+  const m = document.getElementById("impM");
+  if (m) m.className = "imp-choice imp-monster" + (window._taskMonster ? " selected-monster" : "");
+}
+
+function saveTask(objId, taskId) {
+  const obj = state.objectives.find(o => o.id === objId);
+  if (!obj) return;
+  const name = document.getElementById("mTaskName").value.trim();
+  if (!name) return;
+  const cat = (document.getElementById("mTaskCat").value || "").trim();
+  const due = (document.getElementById("mTaskDue").value || "").trim();
+  const imp = window._taskImp;
+  const monster = !!window._taskMonster;
+  if (taskId) {
+    const task = obj.tasks.find(t => t.id === taskId);
+    if (!task) return;
+    task.name = name;
+    task.cat = cat;
+    task.due = due;
+    task.imp = imp;
+    task.monster = monster;
+    if (task.done) {
+      const minutesEl = document.getElementById("mTaskMinutes");
+      const newMinutes = Math.max(1, parseInt(minutesEl.value, 10) || 1);
+      const rate = xpRate(task);
+      const newXp = newMinutes * rate;
+      state.xp += newXp - task.xp;
+      const idx = lastLogIndexOf(taskId);
+      if (idx !== -1) {
+        const entry = state.log[idx];
+        entry.minutes = newMinutes;
+        entry.mult = rate;
+        entry.xp = newXp;
+        entry.taskName = name;
+        entry.cat = cat;
+      }
+      task.minutes = newMinutes;
+      task.xp = newXp;
+    }
+  } else {
+    obj.tasks.push({ id: uid(), name, cat, due, imp, done: false, minutes: 0, xp: 0, items: [], monster });
+  }
+  saveState();
+  closeModal();
+  render();
+}
+
+function openTimeModal(objId, taskId) {
+  const obj = state.objectives.find(o => o.id === objId);
+  const task = obj ? obj.tasks.find(t => t.id === taskId) : null;
+  if (!task) return;
+  window._timeCtx = { objId, taskId, rate: xpRate(task) };
+  openModal(
+    "<h3>Temps de jeu ⏱️</h3>" +
+    "<p class='hint'>Combien de temps as-tu passé sur « " + esc(task.name) + " » ?</p>" +
+    "<input type='number' id='mMinutes' min='1' step='1' placeholder='Minutes' oninput='updateXpPreview()'>" +
+    "<div class='xp-preview'>Gain : <span class='val' id='mPreview'>0 XP</span><br>" +
+    "<span style='font-size:12px;color:var(--muted)'>" + (task.monster ? "👹 " + xpRate(task) + " XP par minute" : IMPORTANCE[task.imp].icon + " " + task.imp + " XP par minute") + "</span></div>" +
+    "<div class='modal-actions'>" +
+    "<button class='btn secondary' onclick='closeModal()'>Annuler</button>" +
+    "<button class='btn' onclick='completeTask()'>✔ Valider</button>" +
+    "</div>"
+  );
+  const input = document.getElementById("mMinutes");
+  input.focus();
+  input.addEventListener("keydown", e => {
+    if (e.key === "Enter") completeTask();
+  });
+}
+
+function updateXpPreview() {
+  const minutes = parseInt(document.getElementById("mMinutes").value, 10) || 0;
+  document.getElementById("mPreview").textContent = (minutes * window._timeCtx.rate) + " XP";
+}
+
+function completeTask() {
+  const ctx = window._timeCtx;
+  const obj = state.objectives.find(o => o.id === ctx.objId);
+  const task = obj ? obj.tasks.find(t => t.id === ctx.taskId) : null;
+  if (!task) { closeModal(); return; }
+  const minutes = parseInt(document.getElementById("mMinutes").value, 10);
+  if (!minutes || minutes < 1) return;
+  const xp = minutes * xpRate(task);
+  const levelBefore = levelInfo(state.xp).level;
+
+  task.done = true;
+  task.minutes = minutes;
+  task.xp = xp;
+  state.xp += xp;
+  state.log.push({
+    taskId: task.id,
+    objectiveId: obj.id,
+    taskName: task.name,
+    cat: task.cat || "",
+    minutes,
+    mult: xpRate(task),
+    xp,
+    date: new Date().toISOString()
+  });
+
+  saveState();
+  closeModal();
+  render();
+
+  fxCelebrateXp(xp);
+  fxPopTask(task.id);
+  toast(task.monster ? "👹 MONSTRE VAINCU · +" + xp + " XP · " + task.name : "+" + xp + " XP · " + task.name, task.monster);
+  const levelAfter = levelInfo(state.xp).level;
+  if (levelAfter > levelBefore) {
+    fxCelebrateLevel(levelAfter);
+    toast("🎉 NIVEAU " + levelAfter + " ! Nouveau titre : " + titleFor(levelAfter), true);
+  }
+  checkAchievements();
+}
+
+function replayTask(objId, taskId) {
+  const obj = state.objectives.find(o => o.id === objId);
+  const task = obj ? obj.tasks.find(t => t.id === taskId) : null;
+  if (!task || !task.done) return;
+  task.done = false;
+  saveState();
+  render();
+  toast("↺ Remise en jeu : " + task.name, false);
+}
+
+function toggleTask(objId, taskId, e) {
+  fxRememberClick(e);
+  const obj = state.objectives.find(o => o.id === objId);
+  const task = obj ? obj.tasks.find(t => t.id === taskId) : null;
+  if (!task) return;
+  if (task.done) {
+    state.xp -= task.xp;
+    task.done = false;
+    task.minutes = 0;
+    task.xp = 0;
+    const idx = lastLogIndexOf(taskId);
+    if (idx !== -1) state.log.splice(idx, 1);
+    saveState();
+    render();
+  } else {
+    openTimeModal(objId, taskId);
+  }
+}
+
+function confirmDeleteObjective(objId) {
+  const obj = state.objectives.find(o => o.id === objId);
+  if (!obj) return;
+  openModal(
+    "<h3>Supprimer la quête ?</h3>" +
+    "<p class='hint'>« " + esc(obj.name) + " » et toutes ses missions seront supprimées. L'XP déjà gagné est conservé.</p>" +
+    "<div class='modal-actions'>" +
+    "<button class='btn secondary' onclick='closeModal()'>Annuler</button>" +
+    "<button class='btn danger' onclick='deleteObjective(\"" + objId + "\")'>Supprimer</button>" +
+    "</div>"
+  );
+}
+
+function deleteObjective(objId) {
+  state.objectives = state.objectives.filter(o => o.id !== objId);
+  saveState();
+  closeModal();
+  goHome();
+}
+
+function archiveObjective(objId) {
+  const idx = state.objectives.findIndex(o => o.id === objId);
+  if (idx === -1) return;
+  const obj = state.objectives.splice(idx, 1)[0];
+  obj.archivedAt = new Date().toISOString();
+  state.archive.push(obj);
+  saveState();
+  if (currentView === objId) currentView = "home";
+  render();
+  toast("🗄️ Quête rangée : " + obj.name, true);
+}
+
+function openArchiveModal() {
+  closeParchMenu();
+  window._openArchive = window._openArchive || new Set();
+  let html = "<h3>🗄️ Archive</h3>";
+  if (state.archive.length === 0) {
+    html += "<div class='empty'>L'archive est vide. Ouvre une quête et clique « 🗄️ Archiver » pour la ranger ici : elle sort du jeu mais garde tout son historique.</div>";
+  } else {
+    html += "<p class='hint'>Clic sur une quête pour voir où tu t'es arrêté. ▶ Reprendre la remet en jeu, rien n'est remis à zéro.</p>";
+    html += state.archive.map(o => {
+      const st = objectiveStats(o);
+      const open = window._openArchive.has(o.id);
+      let inner = "<div class='arch-item'>" +
+        "<div class='arch-head' onclick=\"toggleArchiveItem('" + o.id + "')\">" +
+        "<span class='arch-name'>" + esc(o.name) + (o.cat ? " <span class='obj-type'>" + esc(o.cat) + "</span>" : "") + "</span>" +
+        "<span class='arch-meta'>" + st.done + "/" + st.total + " missions · " + st.xp + " XP</span>" +
+        "<span class='arch-date'>🗄️ " + (o.archivedAt ? shortDate(o.archivedAt.slice(0, 10)) : "") + "</span>" +
+        "</div>";
+      if (open) {
+        inner += "<div class='arch-detail'>" +
+          "<div class='bar' style='height:10px'><div class='" + fillClass(st.pct) + "' style='width:" + st.pct + "%'></div></div>" +
+          o.tasks.map(t =>
+            "<div class='arch-task" + (t.done ? " ok" : "") + "'>" + (t.done ? "✔" : "◻") + " " + esc(t.name) + (t.monster ? " 👹" : "") + "</div>"
+          ).join("") +
+          "<div class='arch-actions'>" +
+          "<button class='btn small' onclick=\"resumeQuest('" + o.id + "')\">▶ Reprendre</button>" +
+          "<button class='btn danger small' onclick=\"confirmDeleteArchived('" + o.id + "')\">🗑️ Supprimer</button>" +
+          "</div>" +
+          "</div>";
+      }
+      return inner + "</div>";
+    }).join("");
+  }
+  openModal(html);
+}
+
+function toggleArchiveItem(id) {
+  window._openArchive = window._openArchive || new Set();
+  if (window._openArchive.has(id)) window._openArchive.delete(id);
+  else window._openArchive.add(id);
+  openArchiveModal();
+}
+
+function resumeQuest(id) {
+  const idx = state.archive.findIndex(o => o.id === id);
+  if (idx === -1) return;
+  const obj = state.archive.splice(idx, 1)[0];
+  delete obj.archivedAt;
+  window._openArchive.delete(id);
+  state.objectives.push(obj);
+  saveState();
+  closeModal();
+  currentView = obj.id;
+  render();
+  toast("▶ " + obj.name + " : retour en jeu", true);
+}
+
+function confirmDeleteArchived(id) {
+  const obj = state.archive.find(o => o.id === id);
+  if (!obj) return;
+  openModal(
+    "<h3>Supprimer cette quête archivée ?</h3>" +
+    "<p class='hint'>« " + esc(obj.name) + " » et toutes ses missions disparaîtront pour de bon. L'XP déjà gagné est conservé.</p>" +
+    "<div class='modal-actions'>" +
+    "<button class='btn secondary' onclick='openArchiveModal()'>Annuler</button>" +
+    "<button class='btn danger' onclick='deleteArchivedQuest(\"" + id + "\")'>Supprimer</button>" +
+    "</div>"
+  );
+}
+
+function deleteArchivedQuest(id) {
+  state.archive = state.archive.filter(o => o.id !== id);
+  window._openArchive.delete(id);
+  saveState();
+  openArchiveModal();
+}
+
+function duplicateObjective(objId) {
+  const obj = state.objectives.find(o => o.id === objId);
+  if (!obj) return;
+  const copy = {
+    id: uid(),
+    name: obj.name + " (copie)",
+    cat: obj.cat || "",
+    tasks: obj.tasks.map(t => ({
+      id: uid(),
+      name: t.name,
+      cat: t.cat || "",
+      imp: t.imp,
+      done: false,
+      minutes: 0,
+      xp: 0,
+      items: (t.items || []).map(it => ({ id: uid(), name: it.name, done: false }))
+    }))
+  };
+  state.objectives.push(copy);
+  saveState();
+  render();
+  toast("⧉ Quête dupliquée : " + copy.name, false);
+}
+
+function toggleParchMenu(e) {
+  e.stopPropagation();
+  const menu = document.getElementById("parchMenu");
+  if (!menu.hidden) { menu.hidden = true; return; }
+  renderParchMenu();
+  menu.hidden = false;
+}
+
+function closeParchMenu() {
+  const menu = document.getElementById("parchMenu");
+  if (menu) menu.hidden = true;
+}
+
+function renderParchMenu() {
+  const menu = document.getElementById("parchMenu");
+  let body;
+  if (state.parchemins.length === 0) {
+    body = "<div class='parch-empty'>Aucun parchemin. Ouvre une quête et clique « 📜 Parchemin » pour la mettre de côté, prête à rejouer.</div>";
+  } else {
+    body = state.parchemins.map(p =>
+      "<div class='parch-item' onclick=\"createQuestFromParchemin('" + p.id + "')\">" +
+      "<span class='parch-name'>" + esc(p.name) + "</span>" +
+      "<span class='parch-count'>" + p.tasks.length + " missions</span>" +
+      "<button class='parch-del' title='Supprimer ce parchemin' onclick=\"event.stopPropagation();deleteParchemin('" + p.id + "')\">✕</button>" +
+      "</div>"
+    ).join("");
+  }
+  menu.innerHTML = "<div class='parch-head'>📜 Lancer une quête depuis un parchemin</div>" + body +
+    "<div class='parch-menu-sep'></div>" +
+    "<div class='parch-item' onclick=\"openArchiveModal()\">" +
+    "<span class='parch-name'>🗄️ Archive</span>" +
+    "<span class='parch-count'>" + state.archive.length + "</span>" +
+    "</div>";
+}
+
+function createQuestFromParchemin(pid) {
+  const p = state.parchemins.find(x => x.id === pid);
+  if (!p) return;
+  const obj = {
+    id: uid(),
+    name: p.name,
+    cat: p.cat || "",
+    tasks: p.tasks.map(t => ({
+      id: uid(),
+      name: t.name,
+      cat: t.cat || "",
+      imp: t.imp || 2,
+      due: "",
+      done: false,
+      minutes: 0,
+      xp: 0,
+      items: (t.items || []).map(it => ({ id: uid(), name: it.name, done: false }))
+    }))
+  };
+  state.objectives.push(obj);
+  saveState();
+  closeParchMenu();
+  currentView = obj.id;
+  render();
+  toast("📜 Quête lancée : " + obj.name, true);
+}
+
+function deleteParchemin(pid) {
+  state.parchemins = state.parchemins.filter(p => p.id !== pid);
+  saveState();
+  renderParchMenu();
+  toast("📜 Parchemin supprimé", false);
+}
+
+function createParcheminFromQuest(objId) {
+  const obj = state.objectives.find(o => o.id === objId);
+  if (!obj) return;
+  if (obj.tasks.length === 0) {
+    toast("Crée d'abord des missions dans cette quête 📜", false);
+    return;
+  }
+  openModal(
+    "<h3>📜 Nouveau parchemin</h3>" +
+    "<p class='hint'>" + obj.tasks.length + " missions de « " + esc(obj.name) + " » seront mises de côté, prêtes à rejouer.</p>" +
+    "<input type='text' id='mParchName' placeholder='Nom du parchemin' value='" + esc(obj.name) + "'>" +
+    "<div class='modal-actions'>" +
+    "<button class='btn secondary' onclick='closeModal()'>Annuler</button>" +
+    "<button class='btn' onclick='saveParchemin(\"" + objId + "\")'>Enregistrer</button>" +
+    "</div>"
+  );
+  document.getElementById("mParchName").focus();
+}
+
+function saveParchemin(objId) {
+  const obj = state.objectives.find(o => o.id === objId);
+  if (!obj) return;
+  const name = document.getElementById("mParchName").value.trim();
+  if (!name) return;
+  const p = {
+    id: uid(),
+    name: name,
+    cat: obj.cat || "",
+    tasks: obj.tasks.map(t => ({
+      name: t.name,
+      cat: t.cat || "",
+      imp: t.imp || 2,
+      items: (t.items || []).map(it => ({ name: it.name, done: false }))
+    }))
+  };
+  const idx = state.parchemins.findIndex(x => x.name === p.name);
+  if (idx !== -1) {
+    p.id = state.parchemins[idx].id;
+    state.parchemins[idx] = p;
+    toast("📜 Parchemin mis à jour : " + p.name + " (" + p.tasks.length + " missions)", true);
+  } else {
+    state.parchemins.push(p);
+    toast("📜 Parchemin créé : " + p.name + " (" + p.tasks.length + " missions)", true);
+  }
+  saveState();
+  closeModal();
+}
+
+window._objDrag = null;
+
+function dragObjective(e, objId) {
+  window._objDrag = objId;
+  e.dataTransfer.effectAllowed = "move";
+  e.dataTransfer.setData("text/plain", objId);
+}
+
+function endDragObjective() {
+  window._objDrag = null;
+  document.querySelectorAll(".obj-card").forEach(el => el.classList.remove("drag-above", "drag-below"));
+}
+
+function objDragOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = "move";
+  const card = e.currentTarget;
+  const rect = card.getBoundingClientRect();
+  const above = e.clientY < rect.top + rect.height / 2;
+  document.querySelectorAll(".obj-card").forEach(el => {
+    if (el !== card) el.classList.remove("drag-above", "drag-below");
+  });
+  card.classList.toggle("drag-above", above);
+  card.classList.toggle("drag-below", !above);
+}
+
+function dropObjective(e, targetId) {
+  e.preventDefault();
+  e.stopPropagation();
+  const srcId = window._objDrag;
+  const above = e.currentTarget.classList.contains("drag-above");
+  endDragObjective();
+  if (!srcId || srcId === targetId) return;
+  const srcIdx = state.objectives.findIndex(o => o.id === srcId);
+  if (srcIdx === -1) return;
+  const moved = state.objectives.splice(srcIdx, 1)[0];
+  let tgtIdx = state.objectives.findIndex(o => o.id === targetId);
+  if (tgtIdx === -1) {
+    state.objectives.splice(srcIdx, 0, moved);
+    return;
+  }
+  if (!above) tgtIdx++;
+  state.objectives.splice(tgtIdx, 0, moved);
+  saveState();
+  render();
+}
+
+function openBgTaskModal(taskId) {
+  const task = taskId ? state.background.find(t => t.id === taskId) : null;
+  const impChoices = impChoicesHtml(task);
+  openModal(
+    "<h3>" + (task ? "Modifier la mission de fond" : "Nouvelle mission de fond") + "</h3>" +
+    "<input type='text' id='mTaskName' placeholder='Ex : Trier les emails' value='" + (task ? esc(task.name) : "") + "'>" +
+    missionPickerHtml() +
+    "<input type='text' id='mTaskCat' list='catList' placeholder='Catégorie (optionnel)' value='" + (task && task.cat ? esc(task.cat) : "") + "'>" +
+    "<datalist id='catList'>" + allCategories().map(c => "<option value='" + esc(c) + "'>").join("") + "</datalist>" +
+    "<p class='hint'>Planifiée le (optionnel, apparaît dans la vue Semaine) :</p>" +
+    "<input type='date' id='mTaskDue' value='" + (task && task.due ? task.due : "") + "'>" +
+    "<p class='hint'>Importance : le multiplicateur appliqué à chaque minute passée.</p>" +
+    "<div class='imp-grid'>" + impChoices + "</div>" +
+    "<div class='modal-actions'>" +
+    "<button class='btn secondary' onclick='closeModal()'>Annuler</button>" +
+    "<button class='btn' onclick='saveBgTask(\"" + (taskId || "") + "\")'>Enregistrer</button>" +
+    "</div>"
+  );
+  document.getElementById("mTaskName").focus();
+}
+
+function saveBgTask(taskId) {
+  const name = document.getElementById("mTaskName").value.trim();
+  if (!name) return;
+  const cat = (document.getElementById("mTaskCat").value || "").trim();
+  const due = (document.getElementById("mTaskDue").value || "").trim();
+  const imp = window._taskImp;
+  const monster = !!window._taskMonster;
+  if (taskId) {
+    const task = state.background.find(t => t.id === taskId);
+    if (!task) return;
+    task.name = name;
+    task.cat = cat;
+    task.due = due;
+    task.imp = imp;
+    task.monster = monster;
+  } else {
+    state.background.push({ id: uid(), name, cat, due, imp, done: false, minutes: 0, xp: 0, lastDone: null, monster, items: [] });
+  }
+  saveState();
+  closeModal();
+  render();
+}
+
+function toggleBgTask(taskId, e) {
+  fxRememberClick(e);
+  const task = state.background.find(t => t.id === taskId);
+  if (!task) return;
+  if (task.done) {
+    resetBgTask(taskId);
+  } else {
+    openBgTimeModal(taskId);
+  }
+}
+
+function resetBgTask(taskId) {
+  const task = state.background.find(t => t.id === taskId);
+  if (!task || !task.done) return;
+  task.done = false;
+  saveState();
+  render();
+}
+
+function openBgTimeModal(taskId) {
+  const task = state.background.find(t => t.id === taskId);
+  if (!task) return;
+  window._bgTimeCtx = { taskId, rate: xpRate(task) };
+  openModal(
+    "<h3>Temps de jeu ⏱️</h3>" +
+    "<p class='hint'>Combien de temps as-tu passé sur « " + esc(task.name) + " » ?</p>" +
+    "<input type='number' id='mMinutes' min='1' step='1' placeholder='Minutes' oninput='updateBgXpPreview()'>" +
+    "<div class='xp-preview'>Gain : <span class='val' id='mPreview'>0 XP</span><br>" +
+    "<span style='font-size:12px;color:var(--muted)'>" + (task.monster ? "👹 " + xpRate(task) + " XP par minute" : IMPORTANCE[task.imp].icon + " " + task.imp + " XP par minute") + "</span></div>" +
+    "<div class='modal-actions'>" +
+    "<button class='btn secondary' onclick='closeModal()'>Annuler</button>" +
+    "<button class='btn' onclick='completeBgTask()'>✔ Valider</button>" +
+    "</div>"
+  );
+  const input = document.getElementById("mMinutes");
+  input.focus();
+  input.addEventListener("keydown", e => {
+    if (e.key === "Enter") completeBgTask();
+  });
+}
+
+function updateBgXpPreview() {
+  const minutes = parseInt(document.getElementById("mMinutes").value, 10) || 0;
+  document.getElementById("mPreview").textContent = (minutes * window._bgTimeCtx.rate) + " XP";
+}
+
+function completeBgTask() {
+  const ctx = window._bgTimeCtx;
+  const task = state.background.find(t => t.id === ctx.taskId);
+  if (!task) { closeModal(); return; }
+  const minutes = parseInt(document.getElementById("mMinutes").value, 10);
+  if (!minutes || minutes < 1) return;
+  const xp = minutes * xpRate(task);
+  const levelBefore = levelInfo(state.xp).level;
+
+  task.done = true;
+  task.minutes = minutes;
+  task.xp = xp;
+  task.lastDone = new Date().toISOString();
+  state.xp += xp;
+  state.log.push({
+    taskId: task.id,
+    objectiveId: "background",
+    taskName: task.name,
+    cat: task.cat || "",
+    minutes,
+    mult: xpRate(task),
+    xp,
+    date: new Date().toISOString()
+  });
+
+  saveState();
+  closeModal();
+  render();
+
+  fxCelebrateXp(xp);
+  fxPopTask(task.id);
+  toast(task.monster ? "👹 MONSTRE VAINCU · +" + xp + " XP · " + task.name : "+" + xp + " XP · " + task.name, task.monster);
+  const levelAfter = levelInfo(state.xp).level;
+  if (levelAfter > levelBefore) {
+    fxCelebrateLevel(levelAfter);
+    toast("🎉 NIVEAU " + levelAfter + " ! Nouveau titre : " + titleFor(levelAfter), true);
+  }
+  checkAchievements();
+}
+
+function confirmDeleteBgTask(taskId) {
+  const task = state.background.find(t => t.id === taskId);
+  if (!task) return;
+  openModal(
+    "<h3>Supprimer la mission de fond ?</h3>" +
+    "<p class='hint'>« " + esc(task.name) + " » sera supprimée. L'XP déjà gagné est conservé.</p>" +
+    "<div class='modal-actions'>" +
+    "<button class='btn secondary' onclick='closeModal()'>Annuler</button>" +
+    "<button class='btn danger' onclick='deleteBgTask(\"" + taskId + "\")'>Supprimer</button>" +
+    "</div>"
+  );
+}
+
+function deleteBgTask(taskId) {
+  state.background = state.background.filter(t => t.id !== taskId);
+  saveState();
+  closeModal();
+  render();
+}
+
+let timelineOffset = 0;
+
+function goTimeline() {
+  currentView = "timeline";
+  render();
+}
+
+function isoDay(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+  return y + "-" + m + "-" + dd;
+}
+
+function shortDate(iso) {
+  return new Date(iso + "T12:00").toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
+}
+
+function mondayOf(date) {
+  const d = new Date(date);
+  const day = (d.getDay() + 6) % 7;
+  d.setDate(d.getDate() - day);
+  return d;
+}
+
+function allTasksWithOrigin() {
+  const list = [];
+  for (const o of state.objectives) {
+    for (const t of o.tasks) list.push({ task: t, originId: o.id, originName: o.name, isBg: false });
+  }
+  for (const t of state.background) list.push({ task: t, originId: "background", originName: "Intendance", isBg: true });
+  return list;
+}
+
+function shiftWeek(delta) {
+  timelineOffset = delta === 0 ? 0 : timelineOffset + delta;
+  render();
+}
+
+function renderTimeline() {
+  const box = document.getElementById("timelineContent");
+  const todayIso = isoDay(new Date());
+  const monday = mondayOf(new Date());
+  monday.setDate(monday.getDate() + timelineOffset * 7);
+  const days = [];
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(monday);
+    d.setDate(d.getDate() + i);
+    days.push(d);
+  }
+  const dayNames = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+  const fmt = d => d.toLocaleDateString("fr-FR", { day: "numeric", month: "long" });
+  const all = allTasksWithOrigin();
+
+  let html = "<div class='tl-nav'>" +
+    "<button class='btn secondary small' onclick='shiftWeek(-1)'>← Semaine précédente</button>" +
+    "<h2>📅 Semaine du " + fmt(days[0]) + " au " + fmt(days[6]) + "</h2>" +
+    "<button class='btn secondary small' onclick='shiftWeek(1)'>Semaine suivante →</button>" +
+    "</div>";
+  if (timelineOffset !== 0) {
+    html += "<div style='text-align:center;margin-bottom:14px'><button class='btn secondary small' onclick='shiftWeek(0)'>↩ Revenir à aujourd'hui</button></div>";
+  }
+
+  if (timelineOffset === 0) {
+    const overdue = all.filter(x => x.task.due && x.task.due < todayIso && !x.task.done);
+    html += "<div class='tl-day tl-overdue' ondragover='dragOverDay(event)' ondragenter='dragEnterDay(event)' ondragleave='dragLeaveDay(event)' ondrop='dropOnDay(event,\"" + todayIso + "\")'>" +
+      "<div class='tl-day-head'><span class='tl-day-name' style='color:var(--red)'>🔥 En retard</span>" +
+      "<span class='tl-day-num'>" + overdue.length + " mission(s) passée(s)</span>" +
+      "<button class='plan-link' onclick=\"openPlanModal('" + todayIso + "')\">+ Planifier ici…</button></div>";
+    if (overdue.length === 0) {
+      html += "<div class='tl-empty'>Rien en retard. Propre sur toi 💪</div>";
+    } else {
+      html += "<ul class='task-list'>" + overdue.map(x => tlTaskItem(x)).join("") + "</ul>";
+    }
+    html += "</div>";
+  }
+
+  for (let i = 0; i < 7; i++) {
+    const d = days[i];
+    const iso = isoDay(d);
+    const isToday = iso === todayIso;
+    const items = all.filter(x => x.task.due === iso);
+    const todo = items.filter(x => !x.task.done);
+    const done = items.filter(x => x.task.done);
+    html += "<div class='tl-day" + (isToday ? " today" : "") + "' " +
+      "ondragover='dragOverDay(event)' ondragenter='dragEnterDay(event)' ondragleave='dragLeaveDay(event)' ondrop='dropOnDay(event,\"" + iso + "\")'>" +
+      "<div class='tl-day-head'><span class='tl-day-name'>" + dayNames[i] + (isToday ? " · aujourd'hui" : "") + "</span>" +
+      "<span class='tl-day-num'>" + fmt(d) + "</span>" +
+      "<button class='plan-link' onclick=\"openPlanModal('" + iso + "')\">+ Planifier…</button></div>";
+    if (items.length === 0) {
+      html += "<div class='tl-empty'>Rien de prévu · dépose une mission ici</div>";
+    } else {
+      html += "<ul class='task-list'>" + todo.map(x => tlTaskItem(x)).join("") + done.map(x => tlTaskItem(x)).join("") + "</ul>";
+    }
+    html += "</div>";
+  }
+
+  box.innerHTML = html;
+}
+
+function tlTaskItem(x) {
+  const t = x.task;
+  const imp = IMPORTANCE[t.imp];
+  return "<li id='task-li-" + t.id + "' class='" + (t.done ? "done" : "") + (t.monster ? " monster" : "") + "' draggable='true' " +
+    "ondragstart='dragTask(event,\"" + x.originId + "\",\"" + t.id + "\")' ondragend='dragEnd()'>" +
+    "<div class='check' onclick=\"tlToggle('" + x.originId + "','" + t.id + "',event)\">✔</div>" +
+    (t.monster ? "<span class='monster-chip'>👹</span>" : "") +
+    "<span class='task-name'>" + esc(t.name) + "</span>" +
+    subBadge(t) +
+    (t.done
+      ? "<span class='task-xp'>+" + t.xp + " XP</span>" +
+        "<button class='icon-btn' title='Remettre en jeu' onclick=\"tlReplay('" + x.originId + "','" + t.id + "')\">↺</button>"
+      : "") +
+    "<span class='tl-origin'>" + esc(x.originName) + "</span>" +
+    "<span class='tag tag-" + t.imp + "'>" + imp.icon + " ×" + t.imp + "</span>" +
+    "<span class='task-actions'>" +
+    (t.due ? "<button class='icon-btn' title='Retirer de la semaine (la mission reste dans sa quête)' onclick=\"unscheduleTask('" + x.originId + "','" + t.id + "')\">📅✕</button>" : "") +
+    "<button class='icon-btn' title='Supprimer la mission' onclick=\"confirmDeleteTl('" + x.originId + "','" + t.id + "')\">🗑️</button>" +
+    "</span>" +
+    "</li>";
+}
+
+function tlToggle(originId, taskId, e) {
+  if (originId === "background") toggleBgTask(taskId, e);
+  else toggleTask(originId, taskId, e);
+}
+
+function tlReplay(originId, taskId) {
+  if (originId === "background") resetBgTask(taskId);
+  else replayTask(originId, taskId);
+}
+
+function confirmDeleteTl(originId, taskId) {
+  if (originId === "background") confirmDeleteBgTask(taskId);
+  else confirmDeleteTask(originId, taskId);
+}
+
+function unscheduleTask(originId, taskId) {
+  const found = allTasksWithOrigin().find(x => x.task.id === taskId && x.originId === originId);
+  if (!found || !found.task.due) return;
+  found.task.due = "";
+  saveState();
+  render();
+  toast("🗓️ " + found.task.name + " retirée de la semaine (mission conservée)", false);
+}
+
+function dragOverDay(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = "move";
+}
+
+function dragEnterDay(e) {
+  if (e.currentTarget.contains(e.relatedTarget)) return;
+  e.currentTarget.classList.add("drag-over");
+}
+
+function dragLeaveDay(e) {
+  if (e.currentTarget.contains(e.relatedTarget)) return;
+  e.currentTarget.classList.remove("drag-over");
+}
+
+function dropOnDay(e, iso) {
+  e.preventDefault();
+  const info = window._drag;
+  dragEnd();
+  if (!info) return;
+  const found = allTasksWithOrigin().find(x => x.task.id === info.taskId && x.originId === info.objId);
+  if (!found) return;
+  found.task.due = iso;
+  saveState();
+  render();
+  toast("📅 " + found.task.name + " → " + new Date(iso + "T12:00").toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "short" }), false);
+}
+
+function openPlanModal(iso) {
+  const all = allTasksWithOrigin();
+  const todo = all.filter(x => !x.task.done);
+  const done = all.filter(x => x.task.done);
+  const dayLabel = new Date(iso + "T12:00").toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
+  const row = x => {
+    const t = x.task;
+    const current = t.due ? "📅 " + shortDate(t.due) : "non planifiée";
+    return "<li onclick=\"planTask('" + x.originId + "','" + t.id + "','" + iso + "')\">" +
+      "<span class='task-name'>" + (t.monster ? "👹 " : "") + esc(t.name) + "</span>" +
+      "<span class='tl-origin'>" + esc(x.originName) + "</span>" +
+      "<span class='tag tag-" + t.imp + "'>×" + t.imp + "</span>" +
+      "<span class='ach-date'>" + current + "</span>" +
+      "</li>";
+  };
+  let body = "";
+  if (todo.length > 0) {
+    body += "<p class='hint'>À faire :</p><ul class='task-list tl-plan-list'>" + todo.map(row).join("") + "</ul>";
+  }
+  if (done.length > 0) {
+    body += "<p class='hint' style='margin-top:14px'>✓ Déjà faites · planifier remet en jeu (XP conservé) :</p>" +
+      "<ul class='task-list tl-plan-list'>" + done.map(x => {
+        const li = row(x);
+        return li.replace("<span class='task-name'>", "<span class='task-name' style='text-decoration:line-through'>");
+      }).join("") + "</ul>";
+  }
+  if (all.length === 0) body = "<p class='hint'>Aucune mission disponible. Crée des missions dans tes quêtes ou l'Intendance.</p>";
+  openModal(
+    "<h3>Planifier sur " + dayLabel + "</h3>" +
+    body +
+    "<div class='modal-actions'><button class='btn secondary' onclick='closeModal()'>Fermer</button></div>"
+  );
+}
+
+function planTask(originId, taskId, iso) {
+  const found = allTasksWithOrigin().find(x => x.task.id === taskId && x.originId === originId);
+  if (!found) return;
+  const wasDone = found.task.done;
+  found.task.done = false;
+  found.task.due = iso;
+  saveState();
+  closeModal();
+  render();
+  toast(wasDone
+    ? "↺ Remise en jeu · " + found.task.name + " → " + shortDate(iso)
+    : "📅 " + found.task.name + " → " + shortDate(iso), false);
+}
+
+function findTaskEverywhere(objId, taskId) {
+  let obj = state.objectives.find(o => o.id === objId) || null;
+  let task = obj ? obj.tasks.find(t => t.id === taskId) : null;
+  if (!task) {
+    for (const o of state.objectives) {
+      const t = o.tasks.find(t => t.id === taskId);
+      if (t) { obj = o; task = t; break; }
+    }
+  }
+  return { obj, task };
+}
+
+function confirmDeleteTask(objId, taskId) {
+  const found = findTaskEverywhere(objId, taskId);
+  const obj = found.obj;
+  const task = found.task;
+  if (!obj || !task) return;
+  openModal(
+    "<h3>Supprimer la mission ?</h3>" +
+    "<p class='hint'>« " + esc(task.name) + " » sera supprimée." + (task.done ? " Les " + task.xp + " XP gagnés seront retirés." : "") + "</p>" +
+    "<div class='modal-actions'>" +
+    "<button class='btn secondary' onclick='closeModal()'>Annuler</button>" +
+    "<button class='btn danger' onclick='deleteTask(\"" + obj.id + "\",\"" + task.id + "\")'>Supprimer</button>" +
+    "</div>"
+  );
+}
+
+function deleteTask(objId, taskId) {
+  const found = findTaskEverywhere(objId, taskId);
+  const obj = found.obj;
+  const task = found.task;
+  if (!obj || !task) return;
+  if (task.done) {
+    state.xp -= task.xp;
+    const idx = state.log.findIndex(e => e.taskId === taskId);
+    if (idx !== -1) state.log.splice(idx, 1);
+  }
+  obj.tasks = obj.tasks.filter(t => t.id !== taskId);
+  saveState();
+  closeModal();
+  render();
+}
+
+window._openSubtasks = new Set();
+
+function findTaskContainer(originId, taskId) {
+  if (originId === "background") {
+    const task = state.background.find(t => t.id === taskId);
+    return task ? { task, isBg: true } : null;
+  }
+  const found = findTaskEverywhere(originId, taskId);
+  return found.task ? { task: found.task, isBg: false } : null;
+}
+
+function toggleSubtasks(originId, taskId, e) {
+  if (e) e.stopPropagation();
+  if (window._openSubtasks.has(taskId)) window._openSubtasks.delete(taskId);
+  else window._openSubtasks.add(taskId);
+  render();
+}
+
+function toggleSubtask(originId, taskId, itemId) {
+  const found = findTaskContainer(originId, taskId);
+  if (!found) return;
+  const it = (found.task.items || []).find(x => x.id === itemId);
+  if (!it) return;
+  it.done = !it.done;
+  saveState();
+  render();
+}
+
+function deleteSubtask(originId, taskId, itemId) {
+  const found = findTaskContainer(originId, taskId);
+  if (!found) return;
+  found.task.items = (found.task.items || []).filter(x => x.id !== itemId);
+  saveState();
+  render();
+}
+
+function addSubtask(originId, taskId) {
+  const found = findTaskContainer(originId, taskId);
+  if (!found) return;
+  const input = document.getElementById("sub-input-" + taskId);
+  const name = (input.value || "").trim();
+  if (!name) return;
+  if (!Array.isArray(found.task.items)) found.task.items = [];
+  found.task.items.push({ id: uid(), name, done: false });
+  saveState();
+  render();
+  const el = document.getElementById("sub-input-" + taskId);
+  if (el) el.focus();
+}
+
+function subInputKey(e, originId, taskId) {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    addSubtask(originId, taskId);
+  }
+}
+
+function subBadge(t) {
+  const items = t.items || [];
+  if (items.length === 0) return "";
+  const doneItems = items.filter(it => it.done).length;
+  return "<span class='sub-badge" + (doneItems === items.length ? " complete" : "") + "'>" + doneItems + "/" + items.length + "</span>";
+}
+
+function subPanelLi(originId, t) {
+  const items = t.items || [];
+  const row = it =>
+    "<li class='" + (it.done ? "done" : "") + "'>" +
+    "<div class='check sub-check' onclick=\"toggleSubtask('" + originId + "','" + t.id + "','" + it.id + "')\">✔</div>" +
+    "<span class='sub-name'>" + esc(it.name) + "</span>" +
+    "<button class='icon-btn' title='Supprimer la tâche' onclick=\"deleteSubtask('" + originId + "','" + t.id + "','" + it.id + "')\">🗑️</button>" +
+    "</li>";
+  return "<li class='sub-panel'>" +
+    (items.length === 0 ? "<div class='sub-empty'>Aucune tâche. Découpe cette mission en étapes.</div>" : "") +
+    "<ul class='sub-list'>" + items.map(row).join("") + "</ul>" +
+    "<div class='sub-add'>" +
+    "<input type='text' id='sub-input-" + t.id + "' placeholder='Nouvelle tâche…' onkeydown=\"subInputKey(event,'" + originId + "','" + t.id + "')\">" +
+    "<button class='btn secondary small' onclick=\"addSubtask('" + originId + "','" + t.id + "')\">+ Ajouter</button>" +
+    "</div>" +
+    "</li>";
+}
+
+function openAchievements() {
+  const items = ACHIEVEMENTS.map(a => {
+    const unlockedAt = state.unlocked[a.id];
+    const li = "<li class='" + (unlockedAt ? "" : "locked") + "'>" +
+      "<div class='ach-icon'>" + (unlockedAt ? a.icon : "🔒") + "</div>" +
+      "<div><div class='ach-name'>" + esc(a.name) + "</div><div class='ach-desc'>" + esc(a.desc) + "</div></div>" +
+      "<div class='ach-date'>" + (unlockedAt ? formatDate(unlockedAt) : "") + "</div>" +
+      "</li>";
+    return li;
+  }).join("");
+  openModal(
+    "<h3>🏆 Achievements (" + Object.keys(state.unlocked).length + "/" + ACHIEVEMENTS.length + ")</h3>" +
+    "<ul class='ach-list'>" + items + "</ul>" +
+    "<div class='modal-actions'><button class='btn' onclick='closeModal()'>Fermer</button></div>"
+  );
+}
+
+function checkAchievements() {
+  const newly = ACHIEVEMENTS.filter(a => !state.unlocked[a.id] && a.test(state));
+  newly.forEach((a, i) => {
+    state.unlocked[a.id] = new Date().toISOString();
+    setTimeout(() => toast(a.icon + " Achievement : " + a.name, true), 400 * (i + 1));
+  });
+  if (newly.length > 0) {
+    saveState();
+    renderHeader();
+  }
+}
+
+let toastCount = 0;
+function toast(msg, gold) {
+  const el = document.createElement("div");
+  el.className = "toast" + (gold ? " gold" : "");
+  el.textContent = msg;
+  document.getElementById("toasts").appendChild(el);
+  const delay = 2600 + toastCount * 200;
+  toastCount++;
+  setTimeout(() => {
+    el.style.transition = "opacity 0.4s";
+    el.style.opacity = "0";
+    setTimeout(() => { el.remove(); toastCount--; }, 400);
+  }, delay);
+}
+
+/* ---- Effets de célébration ---- */
+
+let fxCheckPos = null;
+
+function fxRememberClick(e) {
+  if (!e || !e.target || !e.target.getBoundingClientRect) return;
+  const r = e.target.getBoundingClientRect();
+  fxCheckPos = { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+}
+
+function fxAttach(el, ms) {
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), ms);
+}
+
+function fxConfetti(x, y, count, power) {
+  const colors = ["var(--accent)", "var(--accent2)", "var(--green)", "var(--yellow)", "var(--orange)"];
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement("div");
+    p.className = "fx-particle";
+    const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.9;
+    const dist = power * (0.55 + Math.random() * 0.75);
+    const dx = Math.cos(angle) * dist;
+    const rise = Math.sin(angle) * dist * 0.7 - power * 0.45;
+    const drop = rise + 35 + Math.random() * 45;
+    if (Math.random() < 0.25) {
+      p.textContent = Math.random() < 0.5 ? "✦" : "⭐";
+      p.style.fontSize = (9 + Math.random() * 9) + "px";
+      p.style.color = colors[i % colors.length];
+    } else {
+      const size = 5 + Math.random() * 5;
+      p.style.width = size + "px";
+      p.style.height = size * (Math.random() < 0.5 ? 1 : 0.55) + "px";
+      p.style.background = colors[i % colors.length];
+      p.style.borderRadius = Math.random() < 0.35 ? "50%" : "2px";
+    }
+    p.style.left = x + "px";
+    p.style.top = y + "px";
+    p.animate([
+      { transform: "translate(-50%, -50%) rotate(0deg) scale(1)", opacity: 1 },
+      { transform: "translate(calc(-50% + " + (dx * 0.75).toFixed(1) + "px), calc(-50% + " + rise.toFixed(1) + "px)) rotate(" + (90 + Math.random() * 180).toFixed(0) + "deg) scale(1)", opacity: 1, offset: 0.55 },
+      { transform: "translate(calc(-50% + " + dx.toFixed(1) + "px), calc(-50% + " + drop.toFixed(1) + "px)) rotate(" + (200 + Math.random() * 220).toFixed(0) + "deg) scale(0.3)", opacity: 0 }
+    ], { duration: 650 + Math.random() * 450, easing: "cubic-bezier(0.2, 0.7, 0.4, 1)" });
+    fxAttach(p, 1200);
+  }
+}
+
+function fxCelebrateXp(xp) {
+  const p = fxCheckPos || { x: window.innerWidth / 2, y: window.innerHeight * 0.75 };
+  const ring = document.createElement("div");
+  ring.className = "fx-ring";
+  ring.style.left = p.x + "px";
+  ring.style.top = p.y + "px";
+  fxAttach(ring, 700);
+  const label = document.createElement("div");
+  label.className = "fx-xp";
+  label.textContent = "+" + xp + " XP";
+  label.style.left = p.x + "px";
+  label.style.top = p.y + "px";
+  fxAttach(label, 1300);
+  fxConfetti(p.x, p.y, 14, 55);
+  const bar = document.getElementById("hBar");
+  if (bar) {
+    bar.classList.remove("gain-flash");
+    void bar.offsetWidth;
+    bar.classList.add("gain-flash");
+  }
+}
+
+function fxCelebrateLevel(level) {
+  const x = window.innerWidth / 2;
+  const y = window.innerHeight * 0.4;
+  const label = document.createElement("div");
+  label.className = "fx-xp big";
+  label.textContent = "🎉 NIVEAU " + level + " !";
+  label.style.left = x + "px";
+  label.style.top = y + "px";
+  fxAttach(label, 1700);
+  fxConfetti(x, y, 40, 130);
+  setTimeout(() => fxConfetti(x, y + 30, 24, 100), 220);
+}
+
+function fxPopTask(taskId) {
+  const li = document.getElementById("task-li-" + taskId);
+  if (li) li.classList.add("just-done");
+}
+
+function exportData() {
+  const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "quest-backup.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function importData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const s = JSON.parse(reader.result);
+      if (typeof s.xp !== "number" || !Array.isArray(s.objectives)) throw new Error("bad");
+      state = normalizeState(s);
+      saveState();
+      currentView = "home";
+      render();
+      toast("Données importées ✔", false);
+    } catch (e) {
+      toast("Fichier invalide", true);
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = "";
+}
+
+/* ---- Sync Obsidian (app vers vault, sens unique) ---- */
+
+const DASHBOARD_NAME = "Quest - Tableau de bord.md";
+let vaultHandle = null;
+let syncTimer = null;
+
+function syncBtnEl() {
+  return document.getElementById("syncBtn");
+}
+
+function updateSyncUI(status, timeStr) {
+  const btn = syncBtnEl();
+  if (!btn) return;
+  btn.classList.remove("sync-ok", "sync-err");
+  if (status === "off") { btn.textContent = "💾 Obsidian"; btn.title = "Connecter le vault Obsidian"; }
+  else if (status === "on") { btn.textContent = "💾 Obsidian"; btn.title = "Connecté · cliquer pour synchroniser maintenant"; }
+  else if (status === "synced") { btn.classList.add("sync-ok"); btn.textContent = "💾 ✓ Obsidian"; btn.title = "Synchro OK " + (timeStr || ""); }
+  else if (status === "error") { btn.classList.add("sync-err"); btn.textContent = "💾 ⚠ Obsidian"; btn.title = "Synchro impossible · cliquer pour reconnecter"; }
+}
+
+function idbOpen() {
+  return new Promise((res, rej) => {
+    const req = indexedDB.open("bossquest-sync", 1);
+    req.onupgradeneeded = () => req.result.createObjectStore("handles");
+    req.onsuccess = () => res(req.result);
+    req.onerror = () => rej(req.error);
+  });
+}
+
+async function saveHandle(h) {
+  const db = await idbOpen();
+  return new Promise((res, rej) => {
+    const tx = db.transaction("handles", "readwrite");
+    tx.objectStore("handles").put(h, "vault");
+    tx.oncomplete = () => res();
+    tx.onerror = () => rej(tx.error);
+  });
+}
+
+async function loadHandle() {
+  const db = await idbOpen();
+  return new Promise((res, rej) => {
+    const tx = db.transaction("handles", "readonly");
+    const rq = tx.objectStore("handles").get("vault");
+    rq.onsuccess = () => res(rq.result || null);
+    rq.onerror = () => rej(rq.error);
+  });
+}
+
+async function connectVault() {
+  if (!window.showDirectoryPicker) {
+    toast("Sync Obsidian : utilise Chrome ou Edge", true);
+    return;
+  }
+  try {
+    const picked = await window.showDirectoryPicker({ mode: "readwrite" });
+    if (picked) {
+      vaultHandle = picked;
+      await saveHandle(vaultHandle);
+      toast("💾 Vault connecté", false);
+      await syncNow(false);
+    }
+  } catch (e) {
+    updateSyncUI(vaultHandle ? "on" : "off");
+  }
+}
+
+async function syncNow(silent) {
+  if (!vaultHandle) return;
+  try {
+    const perm = await vaultHandle.queryPermission({ mode: "readwrite" });
+    if (perm !== "granted") {
+      const asked = await vaultHandle.requestPermission({ mode: "readwrite" });
+      if (asked !== "granted") throw new Error("permission refusée");
+    }
+    const fh = await vaultHandle.getFileHandle(DASHBOARD_NAME, { create: true });
+    const w = await fh.createWritable();
+    await w.write(buildDashboard());
+    await w.close();
+    updateSyncUI("synced", new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }));
+  } catch (e) {
+    updateSyncUI("error");
+    if (!silent) toast("Sync échouée : " + e.message, true);
+  }
+}
+
+function scheduleSync() {
+  if (!vaultHandle || !window.showDirectoryPicker) return;
+  clearTimeout(syncTimer);
+  syncTimer = setTimeout(() => syncNow(true), 4000);
+}
+
+function syncClick() {
+  if (!window.showDirectoryPicker) {
+    copyDashboard();
+    return;
+  }
+  if (!vaultHandle) { connectVault(); return; }
+  syncNow(false);
+}
+
+function copyDashboard() {
+  const md = buildDashboard();
+  const done = () => {
+    updateSyncUI("synced", new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }));
+    toast("📋 Tableau de bord copié · colle-le dans la note Obsidian", false);
+  };
+  const fail = () => {
+    updateSyncUI("error");
+    toast("Copie impossible, utilise Ctrl+V manuellement après sélection", true);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(md).then(done).catch(() => fallbackCopy(md, done, fail));
+  } else {
+    fallbackCopy(md, done, fail);
+  }
+}
+
+function fallbackCopy(text, done, fail) {
+  try {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand("copy");
+    ta.remove();
+    if (ok) done(); else fail();
+  } catch (e) {
+    fail();
+  }
+}
+
+async function initSync() {
+  if (!window.showDirectoryPicker) {
+    updateSyncUI("off");
+    const btn = syncBtnEl();
+    btn.textContent = "📋 Copier";
+    btn.title = "Copier le tableau de bord en markdown pour Obsidian";
+    return;
+  }
+  try {
+    vaultHandle = await loadHandle();
+    if (vaultHandle) {
+      const perm = await vaultHandle.queryPermission({ mode: "readwrite" });
+      if (perm === "granted") {
+        updateSyncUI("on");
+        syncNow(true);
+        return;
+      }
+      updateSyncUI("error");
+    } else {
+      updateSyncUI("off");
+    }
+  } catch (e) {
+    updateSyncUI("off");
+  }
+}
+
+function buildDashboard() {
+  const now = new Date();
+  const info = levelInfo(state.xp);
+  let md = "---\ntype: dashboard\ngenerated: " + now.toISOString() + "\n---\n\n";
+  md += "# ⚔️ Quest - Tableau de bord\n\n";
+  md += "> Généré automatiquement depuis l'app (" + now.toLocaleString("fr-FR") + "). Ne pas éditer à la main. Voir [[App Gamification]]\n\n";
+
+  md += "## 🎖️ Joueur\n\n";
+  md += "**Niveau " + info.level + " · " + titleFor(info.level) + "** · " + state.xp + " XP · prochain niveau dans " + (info.need - info.done) + " XP\n\n";
+
+  md += "## 🎯 Quêtes\n\n";
+  if (state.objectives.length === 0) md += "_Aucune quête_\n\n";
+  for (const o of state.objectives) {
+    const st = objectiveStats(o);
+    md += "### " + o.name + (o.cat ? " · " + o.cat : "") + " · " + st.pct + "% (" + st.done + "/" + st.total + ")\n\n";
+    for (const t of o.tasks.filter(x => !x.done)) {
+      md += "- [ ] " + (t.monster ? "👹 " : "") + t.name + (t.due ? " 📅 " + shortDate(t.due) : "") + " (×" + t.imp + ")\n";
+    }
+    for (const t of o.tasks.filter(x => x.done)) {
+      md += "- [x] " + (t.monster ? "👹 " : "") + t.name + " (+" + t.xp + " XP)\n";
+    }
+    md += "\n";
+  }
+
+  md += "## ⚙️ Intendance\n\n";
+  if (state.background.length === 0) md += "_Aucune mission de fond_\n\n";
+  for (const t of state.background) {
+    if (t.done) {
+      md += "- [x] " + (t.monster ? "👹 " : "") + t.name + " (+" + t.xp + " XP" + (t.lastDone ? " · " + formatDate(t.lastDone) : "") + ")\n";
+    } else {
+      md += "- [ ] " + (t.monster ? "👹 " : "") + t.name + (t.due ? " 📅 " + shortDate(t.due) : "") + " (×" + t.imp + ")\n";
+    }
+  }
+  md += "\n";
+
+  const monday = mondayOf(now);
+  const dayNames = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+  const all = allTasksWithOrigin();
+  md += "## 📅 Semaine du " + monday.toLocaleDateString("fr-FR", { day: "numeric", month: "long" }) + "\n\n";
+  let anyPlanned = false;
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(monday);
+    d.setDate(d.getDate() + i);
+    const iso = isoDay(d);
+    const items = all.filter(x => x.task.due === iso);
+    if (items.length === 0) continue;
+    anyPlanned = true;
+    md += "### " + dayNames[i] + " " + d.getDate() + "\n";
+    for (const x of items) {
+      const t = x.task;
+      md += (t.done ? "- [x] " : "- [ ] ") + t.name + " · " + x.originName + (t.done ? " (+" + t.xp + " XP)" : "") + "\n";
+    }
+    md += "\n";
+  }
+  if (!anyPlanned) md += "_Rien de planifié cette semaine_\n\n";
+
+  md += "## ✅ Dernières victoires\n\n";
+  const recent = state.log.slice(-10).reverse();
+  if (recent.length === 0) md += "_Aucune victoire pour l'instant_\n\n";
+  for (const e of recent) {
+    md += "- " + e.taskName + " : +" + e.xp + " XP (" + e.minutes + " min × " + e.mult + " · " + formatDate(e.date) + ")\n";
+  }
+
+  md += "\n## 🏆 Achievements (" + Object.keys(state.unlocked).length + "/" + ACHIEVEMENTS.length + ")\n\n";
+  for (const a of ACHIEVEMENTS) {
+    const at = state.unlocked[a.id];
+    if (at) md += "- " + a.icon + " **" + a.name + "** (" + formatDate(at) + ")\n";
+  }
+  return md;
+}
+
+/* ---- Sauvegarde cloud Supabase ---- */
+
+const SUPABASE_URL = "https://ofiaejpxqbzbkxzmqcku.supabase.co/rest/v1";
+const SUPABASE_KEY = "sb_publishable_8KwtM--VIDk8Gq0XeszWiw_NPeUE7Zf";
+const SAVE_ID_KEY = "bossquest-save-id";
+
+let cloudStatus = "idle";
+let cloudTimer = null;
+let cloudPending = false;
+let saveId = localStorage.getItem(SAVE_ID_KEY);
+
+function getOrCreateSaveId() {
+  if (saveId) return saveId;
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let code = "NICO-";
+  for (let i = 0; i < 8; i++) {
+    code += chars[Math.floor(Math.random() * chars.length)];
+    if (i === 3) code += "-";
+  }
+  saveId = code;
+  localStorage.setItem(SAVE_ID_KEY, code);
+  return code;
+}
+
+function supabaseHeaders(extra) {
+  const h = {
+    "apikey": SUPABASE_KEY,
+    "Authorization": "Bearer " + SUPABASE_KEY,
+    "Content-Type": "application/json"
+  };
+  if (extra) Object.assign(h, extra);
+  return h;
+}
+
+async function cloudGet(id) {
+  const res = await fetch(SUPABASE_URL + "/bossquest_saves?id=eq." + encodeURIComponent(id) + "&select=data", {
+    headers: supabaseHeaders()
+  });
+  if (!res.ok) throw new Error("HTTP " + res.status);
+  const rows = await res.json();
+  return rows.length > 0 ? rows[0].data : null;
+}
+
+async function cloudPush() {
+  const id = getOrCreateSaveId();
+  const res = await fetch(SUPABASE_URL + "/bossquest_saves", {
+    method: "POST",
+    headers: supabaseHeaders({ "Prefer": "resolution=merge-duplicates" }),
+    body: JSON.stringify({ id: id, data: state, updated_at: new Date().toISOString() })
+  });
+  if (!res.ok) throw new Error("HTTP " + res.status);
+}
+
+function scheduleCloudPush() {
+  cloudPending = true;
+  clearTimeout(cloudTimer);
+  cloudTimer = setTimeout(() => cloudSave(true), 4000);
+}
+
+async function cloudSave(silent) {
+  cloudStatus = "busy";
+  updateCloudUI();
+  try {
+    await cloudPush();
+    cloudPending = false;
+    cloudStatus = "ok";
+    updateCloudUI();
+    if (!silent) toast("☁️ Sauvegardé dans le cloud", false);
+  } catch (e) {
+    cloudStatus = "error";
+    updateCloudUI();
+    if (!silent) toast("☁️ Sauvegarde échouée : " + e.message, true);
+  }
+}
+
+async function cloudInit() {
+  getOrCreateSaveId();
+  try {
+    const remote = await cloudGet(saveId);
+    if (remote && typeof remote.xp === "number") {
+      const localTime = state.updatedAt || "";
+      const remoteTime = remote.updatedAt || "";
+      if (remoteTime > localTime) {
+        state = normalizeState(remote);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        render();
+      } else {
+        cloudSave(true);
+      }
+    } else {
+      cloudSave(true);
+    }
+    if (cloudStatus !== "error") { cloudStatus = "ok"; updateCloudUI(); }
+  } catch (e) {
+    cloudStatus = "error";
+    updateCloudUI();
+  }
+}
+
+function updateCloudUI() {
+  const btn = document.getElementById("cloudBtn");
+  if (!btn) return;
+  btn.classList.remove("sync-ok", "sync-err");
+  if (cloudStatus === "ok") {
+    btn.classList.add("sync-ok");
+    btn.title = "Sauvegardé dans le cloud";
+  } else if (cloudStatus === "busy") {
+    btn.textContent = "⏳";
+    btn.title = "Sauvegarde en cours";
+  } else if (cloudStatus === "error") {
+    btn.classList.add("sync-err");
+    btn.textContent = "☁️";
+    btn.title = "Problème de synchro cloud · clique pour voir";
+  } else {
+    btn.textContent = "☁️";
+    btn.title = "Sauvegarde cloud";
+  }
+  if (cloudStatus !== "busy") btn.textContent = "☁️";
+}
+
+function cloudStatusLabel() {
+  if (cloudStatus === "ok") return "✓ Sauvegardé";
+  if (cloudStatus === "busy") return "⏳ En cours";
+  if (cloudStatus === "error") return "⚠ Connexion impossible";
+  return "En attente";
+}
+
+function openCloudModal() {
+  openModal(
+    "<h3>☁️ Sauvegarde cloud</h3>" +
+    "<p class='hint'>Status : " + cloudStatusLabel() + "</p>" +
+    "<p class='hint'>Code de sauvegarde : note-le précieusement. Il permet de récupérer tes données sur un autre navigateur ou PC (bouton Restaurer).</p>" +
+    "<input type='text' id='mSaveId' value='" + esc(getOrCreateSaveId()) + "'>" +
+    "<div class='modal-actions'>" +
+    "<button class='btn secondary' onclick='cloudRestoreFromModal()'>↩ Restaurer ce code</button>" +
+    "<button class='btn' onclick='cloudSaveFromModal()'>Sauvegarder maintenant</button>" +
+    "</div>" +
+    "<div class='modal-actions'>" +
+    "<button class='btn secondary' onclick='closeModal()'>Fermer</button>" +
+    "</div>"
+  );
+}
+
+function cloudSaveFromModal() {
+  const newId = (document.getElementById("mSaveId").value || "").trim().toUpperCase();
+  if (newId && newId !== saveId) {
+    saveId = newId;
+    localStorage.setItem(SAVE_ID_KEY, saveId);
+  }
+  closeModal();
+  cloudSave(false);
+}
+
+async function cloudRestoreFromModal() {
+  const newId = (document.getElementById("mSaveId").value || "").trim().toUpperCase();
+  if (!newId) return;
+  try {
+    const remote = await cloudGet(newId);
+    if (!remote || typeof remote.xp !== "number") {
+      toast("Aucune sauvegarde cloud pour ce code", true);
+      return;
+    }
+    saveId = newId;
+    localStorage.setItem(SAVE_ID_KEY, saveId);
+    state = normalizeState(remote);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    currentView = "home";
+    closeModal();
+    render();
+    toast("☁️ Données restaurées depuis le cloud", false);
+  } catch (e) {
+    toast("Restauration échouée : " + e.message, true);
+  }
+}
+
+window.addEventListener("beforeunload", () => {
+  if (cloudPending) {
+    try {
+      fetch(SUPABASE_URL + "/bossquest_saves", {
+        method: "POST",
+        headers: supabaseHeaders({ "Prefer": "resolution=merge-duplicates" }),
+        body: JSON.stringify({ id: getOrCreateSaveId(), data: state, updated_at: new Date().toISOString() }),
+        keepalive: true
+      }).catch(() => {});
+    } catch (e) {}
+  }
+});
+
+applyTheme(currentTheme());
+render();
+initSync();
+cloudInit();
+</script>
+</body>
+</html>
